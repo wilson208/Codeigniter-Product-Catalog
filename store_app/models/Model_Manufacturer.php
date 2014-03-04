@@ -18,12 +18,12 @@ class Model_Manufacturer extends CI_Model{
     
     function addManufacturer($name, $phone, $email, $logo){
         $data = array(
-            'name'     => $title ,
+            'name'     => $name ,
             'phone'      => $blog ,
             'email'   => $user_id,
-            'logo'    => $status
+            'logo'    => $logo
          );
-
+        
         $this->db->insert('manufacturer', $data);
     }
     
