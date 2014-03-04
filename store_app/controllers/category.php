@@ -25,6 +25,9 @@ class category extends My_Controller{
             $category = $this->Model_Category->getCategory($category_id);
             $data['category'] = $category;
             
+            
+            
+            
             parent::loadPage('category', $category->row()->name, $data);   
         }
     }
