@@ -3,6 +3,5 @@
     <div>
         <?php echo $blog->row()->blog; ?>
     </div>
-    <h2>mhzdvfmshvf\mshjdvm\hsdgv</h2>
 </div>
 
