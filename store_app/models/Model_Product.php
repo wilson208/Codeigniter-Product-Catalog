@@ -67,6 +67,9 @@ class Model_Product extends CI_Model{
     function deleteProduct($id){
         
     }
+    function getProduct($id){
+        return $this->db->get_where('product', array('id' => $id), 1, 0);
+    }
     
     function insertProductImage($productId, $url){
         
@@ -76,6 +79,9 @@ class Model_Product extends CI_Model{
     }
     function deleteProductImage($id){
         
+    }
+    function getProductImages($productId){
+        return $this->db->get_where('product_image', array('product_id' => $productId));
     }
     
     /**
