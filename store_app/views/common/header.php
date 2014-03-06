@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="<?php echo asset_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo asset_url('css/style.css'); ?>" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
