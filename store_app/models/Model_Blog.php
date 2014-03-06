@@ -54,7 +54,6 @@ class Model_Blog extends CI_Model{
         }
         
         $result =  $this->db->query('SELECT * FROM `blog` WHERE `status` = ? AND LOWER(`title`) LIKE LOWER(?) OR LOWER(`blog`) LIKE LOWER(?)', array($status, "%$searchQuery%", "%$searchQuery%"));
-        echo $this->db->last_query();
         return $result;
     }
     

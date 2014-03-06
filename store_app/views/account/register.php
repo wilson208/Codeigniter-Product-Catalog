@@ -2,11 +2,12 @@
 
 <div class="row">
     <h2>Register</h2>
-    <?php echo form_open('account/register', array('role' => 'form')); ?>
+    <div style="color:red;"><?php echo validation_errors(); ?></div>
+    <?php echo form_open('account/processRegistration', array('role' => 'form')); ?>
         <div class="col-lg-4 border-right">
             <div class="form-group">
                 <label for="username">Title</label>
-                <select class="form-control">
+                <select name="title" class="form-control">
                     <option name="title" value="Mr" <?php if(isset($title) && $title == 'Mr'){ echo 'checked'; } ?>>Mr.</option>
                     <option name="title" value="Mrs" <?php if(isset($title) && $title == 'Mrs'){ echo 'checked'; } ?>>Mrs.</option>
                     <option name="title" value="Miss" <?php if(isset($title) && $title == 'Miss'){ echo 'checked'; } ?>>Miss.</option>
@@ -37,14 +38,14 @@
             </div>
             
             <div id="passwordConfirmGroup" class="form-group">
-                <label  for="confirmpassword">Confirm Password</label>
-                <input id="passwordconfirm" type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" onkeyup="validatePasswordConfirm()" onchange="validatePasswordConfirm()" value="<?php if(isset($passwordconfirm)){echo $passwordconfirm;} ?>">
+                <label  for="passwordconfirm">Confirm Password</label>
+                <input id="passwordconfirm" name="passwordconfirm" type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" onkeyup="validatePasswordConfirm()" onchange="validatePasswordConfirm()" value="<?php if(isset($passwordconfirm)){echo $passwordconfirm;} ?>">
                 <span id="passwordConfirmSpan" class=""></span>
             </div>
             
             <div class="checkbox">
                 <label>
-                  <input name="newsletter" type="checkbox" value="">I do not wish to subscribe to the monthly newsletter
+                  <input name="newsletter" type="checkbox" value="0" <?php if(isset($newsletter)){echo 'checked';} ?>>I do not wish to subscribe to the monthly newsletter
                 </label>
             </div>
             
@@ -54,40 +55,40 @@
             
             <div class="form-group">
                 <label for="address1">Address Line 1</label>
-                <input name="address1" type="text" class="form-control" id="address1" placeholder="Address Line 1">
+                <input name="address1" type="text" class="form-control" id="address1" placeholder="Address Line 1" value="<?php if(isset($address1)){echo $address1;} ?>">
             </div>
             
             <div class="form-group">
                 <label for="address2">Address Line 2</label>
-                <input name="address2" type="text" class="form-control" id="address2" placeholder="Address Line 2">
+                <input name="address2" type="text" class="form-control" id="address2" placeholder="Address Line 2" value="<?php if(isset($address2)){echo $address2;} ?>">
             </div>
             
             <div class="form-group">
                 <label for="town">Town</label>
-                <input name="town" type="text" class="form-control" id="town" placeholder="Town">
+                <input name="town" type="text" class="form-control" id="town" placeholder="Town" value="<?php if(isset($town)){echo $town;} ?>">
             </div>
             
             <div class="form-group">
                 <label for="postcode">Postcode</label>
-                <input name="postcode" type="text" class="form-control" id="postcode" placeholder="Postcode">
+                <input name="postcode" type="text" class="form-control" id="postcode" placeholder="Postcode" value="<?php if(isset($postcode)){echo $postcode;} ?>">
             </div>
             
             <div class="form-group">
                 <label for="county">County</label>
-                <input name="county" type="text" class="form-control" id="county" placeholder="County">
+                <input name="county" type="text" class="form-control" id="county" placeholder="County" value="<?php if(isset($county)){echo $county;} ?>">
             </div>
             
             <div class="form-group">
                 <label for="country">Country</label>
-                <select class="form-control">
-                    <option name="country" value="UK">UK</option>
-                    <option name="country" value="Ireland">Ireland</option>
+                <select name="country" class="form-control">
+                    <option name="country" value="UK" <?php if(isset($country) && $country == 'UK'){ echo 'checked'; } ?>>UK</option>
+                    <option name="country" value="Ireland" <?php if(isset($country) && $country == 'Ireland'){ echo 'checked'; } ?>>Ireland</option>
                 </select>
             </div>
             
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input name="phone" type="number" class="form-control" id="phone" placeholder="Phone">
+                <input name="phone" type="text" class="form-control" id="phone" placeholder="Phone" value="<?php if(isset($phone)){echo $phone;} ?>">
             </div>
 
         </div>
@@ -96,7 +97,7 @@
             <div class="col-lg-6">
                 <div class="checkbox">
                     <label>
-                        <input name="agree" type="checkbox" value="">I have read and I agree to the <a href="<?php echo base_url('page/terms'); ?>">Terms & Conditions</a>
+                        <input name="agree" type="checkbox" value="1" <?php if(isset($agree)){echo 'checked';} ?>>I have read and I agree to the <a href="<?php echo base_url('page/terms'); ?>">Terms & Conditions</a>
                     </label>
                 </div>
             </div>

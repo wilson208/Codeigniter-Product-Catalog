@@ -4,6 +4,13 @@ class Model_User extends CI_Model{
         parent::__construct();
     }
     
+    /**
+     * 
+     * @param type $email
+     * @param type $password
+     * @return false on no login
+     * @return int id of user logged in
+     */
     function verifyLogin($email, $password){
         $result = $this->db->query('SELECT * FROM `user` WHERE LOWER(`email`) = LOWER(?) AND `password` = ?', array($email, $password));
         if($result->num_rows > 0){
@@ -14,7 +21,14 @@ class Model_User extends CI_Model{
     }
     
     function getUser($id){
-        return $this->db->query('SELECT * FROM `user` WHERE `id` = ?;', array($id));
+        $this->db->where('id', $id);
+        return $this->db->get('user');
+    }
+    
+    function insertUser($data){
+        $data['password'] = hash("sha256", $data['password']);
+        $this->db->insert('user', $data);
+        return $this->db->insert_id();
     }
     
 }
