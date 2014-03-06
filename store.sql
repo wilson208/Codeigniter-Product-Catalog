@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2014 at 09:03 PM
+-- Generation Time: Mar 06, 2014 at 12:59 AM
 -- Server version: 5.5.25
 -- PHP Version: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `store`
@@ -71,6 +65,30 @@ INSERT INTO `category` (`id`, `name`, `parent`, `order`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `title`, `image`, `order`) VALUES
+(1, 'This is image 1', 'image1.jpg', 0),
+(2, 'This is image 2', 'image2.jpg', 1),
+(3, 'This is image 3', 'image3.jpg', 0),
+(4, 'This is image 4', 'image4.jpg', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manufacturer`
 --
 
@@ -113,7 +131,7 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`id`, `page_title`, `menu_title`, `show_in_menu`, `content`, `css`, `url`) VALUES
-(1, 'About Us', 'Who We Are', 1, '<p>This is the about us page</p>', 'p{\r\ncolor:red;\r\n}', 'about_us'),
+(1, 'About Us', 'Who We Are', 1, '<p>This is the about us page</p><p>This is extracontent</p>', 'p{\r\ncolor:red;\r\n}', 'about_us'),
 (2, 'Terms & Conditions', 'Terms', 0, '<p>This is our terms and conditions information</p>', '', 'terms');
 
 -- --------------------------------------------------------
@@ -142,6 +160,21 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `sku`, `name`, `description`, `quantity`, `image`, `price`, `status`, `views`) VALUES
 (2, 'ABC123', 'Product 1', 'This is the description', 5, 'product/tv/image.png', 4.50, 1, 0),
 (3, 'BCD234', 'Product 2', 'This is the description', 5, 'product/tv/image2.png', 4.50, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_image`
+--
+
+CREATE TABLE `product_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -195,7 +228,3 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `title`, `forename`, `surname`, `email`, `phone`, `password`, `newsletter`, `address1`, `address2`, `town`, `postcode`, `county`, `country`, `date_created`, `admin`) VALUES
 (1, 'Mr', 'Wilson', 'McCoubrey', 'wilson@mccoubreys.co.uk', '07835441951', '29ef2918ac300330ddbe99af502d85e9dcf3c478d50f9ee06514d8164ea5e026', 1, '44 Magherahamlet Road', NULL, 'Ballynahinch', 'BT24 8PZ', 'Down', 'UK', '2014-02-22 18:31:28', 1);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
