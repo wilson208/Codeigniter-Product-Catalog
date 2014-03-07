@@ -68,7 +68,7 @@ class account extends My_Controller{
                 $data['email'] = $userdetails->email;
                 $data['logged_in'] = true;
                 $this->session->set_userdata($data);
-                redirect('loginSuccess', 'refresh');
+                redirect('account/loginSuccess', 'refresh');
             }
         }
         //Only reached if the login failed.

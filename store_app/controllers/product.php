@@ -42,6 +42,31 @@ class product extends My_Controller{
     }
     
     function all(){
+        $manufacturer = null;
+        $category = null;
+        $title = "Products";
+        
+        if($this->input->get('manufacturer') != FALSE){
+            $manufacturer = $this->input->get('manufacturer');
+            $this->load->model('Model_Manufacturer');
+            $result = $this->Model_Manufacturer->getManufacturer($manufacturer);
+            if($result->num_rows() > 0){
+                $title = $result->row()->name;
+            }
+        }
+        
+        if($this->input->get('category') != FALSE){
+            $category = $this->input->get('category');
+            $this->load->model('Model_Category');
+            $result = $this->Model_Category->getCategory($category);
+            if($result->num_rows() > 0){
+                $title = $result->row()->name;
+            }
+        }
+        
+        $data['products'] = $this->product->getProducts($manufacturer, $category);
+        $data['title'] = $title;
+        parent::loadPage('product/list', 'Products', $data);
         
     }
 }

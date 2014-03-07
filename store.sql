@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 06, 2014 at 12:59 AM
+-- Generation Time: Mar 07, 2014 at 12:27 AM
 -- Server version: 5.5.25
 -- PHP Version: 5.2.17
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `blog`
 --
 
-CREATE TABLE `blog` (
+CREATE TABLE IF NOT EXISTS `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
   `blog` text NOT NULL,
@@ -44,7 +44,7 @@ INSERT INTO `blog` (`id`, `title`, `blog`, `status`, `user_id`, `date_created`) 
 -- Table structure for table `category`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
   `parent` int(11) NOT NULL DEFAULT '0',
@@ -68,7 +68,7 @@ INSERT INTO `category` (`id`, `name`, `parent`, `order`) VALUES
 -- Table structure for table `gallery`
 --
 
-CREATE TABLE `gallery` (
+CREATE TABLE IF NOT EXISTS `gallery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `image` varchar(100) NOT NULL,
@@ -92,7 +92,7 @@ INSERT INTO `gallery` (`id`, `title`, `image`, `order`) VALUES
 -- Table structure for table `manufacturer`
 --
 
-CREATE TABLE `manufacturer` (
+CREATE TABLE IF NOT EXISTS `manufacturer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `phone` varchar(15) NOT NULL,
@@ -115,7 +115,7 @@ INSERT INTO `manufacturer` (`id`, `name`, `phone`, `email`, `logo`) VALUES
 -- Table structure for table `page`
 --
 
-CREATE TABLE `page` (
+CREATE TABLE IF NOT EXISTS `page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `page_title` varchar(50) NOT NULL,
   `menu_title` varchar(25) NOT NULL,
@@ -140,26 +140,29 @@ INSERT INTO `page` (`id`, `page_title`, `menu_title`, `show_in_menu`, `content`,
 -- Table structure for table `product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(25) NOT NULL,
   `name` varchar(60) NOT NULL,
   `description` text NOT NULL,
+  `category` int(11) NOT NULL,
+  `manufacturer` int(11) NOT NULL,
   `quantity` mediumint(9) NOT NULL DEFAULT '0',
   `image` varchar(40) DEFAULT NULL,
   `price` decimal(6,2) NOT NULL DEFAULT '0.00',
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `views` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `sku`, `name`, `description`, `quantity`, `image`, `price`, `status`, `views`) VALUES
-(2, 'ABC123', 'Product 1', 'This is the description', 5, 'product/tv/image.png', 4.50, 1, 0),
-(3, 'BCD234', 'Product 2', 'This is the description', 5, 'product/tv/image2.png', 4.50, 1, 0);
+INSERT INTO `product` (`id`, `sku`, `name`, `description`, `category`, `manufacturer`, `quantity`, `image`, `price`, `status`, `views`) VALUES
+(2, 'ABC123', 'Product 1', 'This is the description', 1, 2, 0, '1.jpg', 4.50, 1, 0),
+(3, 'BCD234', 'Product 2', 'This is the description', 1, 2, 5, '2.jpg', 4.50, 1, 0),
+(4, 'QWE321', 'This is my Product', 'This is the description', 2, 2, 2, '3.jpg', 59.99, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -167,7 +170,7 @@ INSERT INTO `product` (`id`, `sku`, `name`, `description`, `quantity`, `image`, 
 -- Table structure for table `product_image`
 --
 
-CREATE TABLE `product_image` (
+CREATE TABLE IF NOT EXISTS `product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `url` varchar(100) NOT NULL,
@@ -182,7 +185,7 @@ CREATE TABLE `product_image` (
 -- Table structure for table `setting`
 --
 
-CREATE TABLE `setting` (
+CREATE TABLE IF NOT EXISTS `setting` (
   `setting` varchar(50) NOT NULL,
   `value` varchar(50) NOT NULL,
   PRIMARY KEY (`setting`)
@@ -202,7 +205,7 @@ INSERT INTO `setting` (`setting`, `value`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(5) NOT NULL,
   `forename` varchar(15) NOT NULL,
@@ -220,7 +223,7 @@ CREATE TABLE `user` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`

@@ -71,6 +71,28 @@ class Model_Product extends CI_Model{
         return $this->db->get_where('product', array('id' => $id), 1, 0);
     }
     
+    /**
+     * 
+     * @param int $manufacturer
+     * @param int $category
+     * @param int $status 1 for active, 0 for inactive
+     * @return Products in form of Codeigniter Activ Result
+     */
+    function getProducts($manufacturer = null, $category = null, $status = 1){
+        
+        $this->db->where('status', $status);
+        
+        if($manufacturer != null){
+            $this->db->where('manufacturer', $manufacturer);
+        }
+        
+        if($category != null){
+            $this->db->where('category', $category);
+        }
+        
+        return $this->db->get('product');
+    }
+    
     function insertProductImage($productId, $url){
         
     }
