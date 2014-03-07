@@ -16,6 +16,31 @@ class contact extends My_Controller {
         parent::__construct();
     }
     function index(){
-        parent::loadPage('contact_us', 'Contact Us');
+        parent::loadPage('contact/form', 'Contact Us');
+    }
+    
+    function process(){
+        $this->load->library('form_validation');
+        
+        $this->form_validation->set_rules('name', 'Name', 'required|min_length[3]|max_length[40]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('address', 'Address', '');
+        $this->form_validation->set_rules('phone', 'Phone', 'max_length[20]');
+        $this->form_validation->set_rules('enquiry', 'Enquiry', 'required|min_length[10]|max_length[300]');
+        
+        if ($this->form_validation->run() == FALSE){
+            parent::loadPage('contact/form', 'Contact Us');
+	}else{
+            redirect('contact/success', 'refresh');
+	}
+
+    }
+    
+    function success(){
+            parent::loadPage('contact/success');
+    }
+    
+    function failure(){
+            parent::loadPage('contact/failure');
     }
 }

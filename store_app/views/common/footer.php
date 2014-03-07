@@ -5,7 +5,7 @@
 
                 <hr>
 
-                <footer>
+                <footer class="navbar navbar-fixed-bottom nav-">
                     <div class="row">
                         
                         <div class="col-lg-4">

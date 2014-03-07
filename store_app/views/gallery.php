@@ -1,4 +1,3 @@
-
 <h1>Gallery</h1>
 <?php 
 if($gallery != null && $gallery->num_rows() > 0){
@@ -13,11 +12,11 @@ if($gallery != null && $gallery->num_rows() > 0){
         }
 ?>        
 <div class="col-md-4">
-    <a href="<?php echo asset_url('images/gallery/' . $image->image); ?>" >
+    <a href="#lightbox<?php echo $image->id; ?>">
         <img class="img-responsive img-rounded" src="<?php echo asset_url('images/gallery/' . $image->image); ?>" alt="<?php echo $image->title; ?>" />
     </a>
     <center><h4><?php echo $image->title; ?></h4></center>
-</div>   
+</div>
 <?php        
         if($count == 2 || $count == $gallery->num_rows()){
             echo '</div>';
