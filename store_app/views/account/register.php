@@ -25,12 +25,14 @@
                 <label for="surname">Surname</label>
                 <input name="surname" type="text" class="form-control" id="surname" placeholder="Surname"  value="<?php if(isset($surname)){echo $surname;} ?>">
             </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="<?php if(isset($email)){echo $email;} ?>">
-            </div>
 
+            <div id="emailGroup" class="form-group">
+                <label for="email">Email</label>
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="<?php if(isset($email)){echo $email;} ?>" onchange="validateEmail()" onpropertychange="validateEmail()" onkeyup="validateEmail()">
+                <span id="emailSpan" class=""></span>
+                <label id="emailError"></label>
+            </div>
+            
             <div id="passwordGroup" class="form-group">
                 <label for="password">Password</label>
                 <input name="password" id='password' type="password" class="form-control" id="password" placeholder="Password" onkeyup="validatePassword()" onchange="validatePassword()" value="<?php if(isset($password)){echo $password;} ?>">

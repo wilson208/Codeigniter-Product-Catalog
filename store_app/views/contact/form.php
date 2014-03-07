@@ -6,27 +6,27 @@
 
             <div class="form-group">
               <label for="name">Name</label>
-              <input name="name" type="text" class="form-control" id="name" placeholder="Enter Name" value="<?php echo setValue('name'); ?>">
+              <input name="name" type="text" class="form-control" id="name" placeholder="Enter Name" value="<?php echo set_value('name'); ?>">
             </div>
 
             <div class="form-group">
               <label for="email">Email address</label>
-              <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email" value="<?php echo setValue('email'); ?>">
+              <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email" value="<?php echo set_value('email'); ?>">
             </div>
 
             <div class="form-group">
               <label for="phone">Phone (Optional)</label>
-              <input name="phone" type="text" class="form-control" id="phone" placeholder="Enter Phone" value="<?php echo setValue('phone'); ?>">
+              <input name="phone" type="text" class="form-control" id="phone" placeholder="Enter Phone" value="<?php echo set_value('phone'); ?>">
             </div>
 
             <div class="form-group">
               <label for="address">Address (Optional)</label>
-              <input name="address" type="text" class="form-control" id="phone" placeholder="Enter Address" value="<?php echo setValue('address'); ?>">
+              <input name="address" type="text" class="form-control" id="phone" placeholder="Enter Address" value="<?php echo set_value('address'); ?>">
             </div>
 
             <div class="form-group">
               <label for="enquiry">Enquiry</label>
-              <textarea name="enquiry" rows="3" class="form-control" id="enquiry" placeholder="Ask Your Question"></textarea>
+              <textarea name="enquiry" rows="3" class="form-control" id="enquiry" placeholder="Ask Your Question"><?php echo set_value('enquiry'); ?></textarea>
             </div>
             
             <input type="submit" class="btn btn-block" value="Submit" />

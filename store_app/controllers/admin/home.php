@@ -11,15 +11,12 @@
  *
  * @author Wilson McCoubrey <wilson@mccoubreys.co.uk>
  */
-class home extends CI_Controller{
-    
+class home extends My_Controller{
     function __construct() {
-        parent::__construct();        
+        parent::__construct();
     }
     
     function index(){
-        $this->load->view('admin/common/header');
-        $this->load->view('admin/home');
-        $this->load->view('admin/common/header');
+        parent::loadAdmin('home');
     }
 }

@@ -66,6 +66,7 @@ class account extends My_Controller{
                 $data['id'] = $userdetails->id;
                 $data['name'] = $userdetails->forename;
                 $data['email'] = $userdetails->email;
+                $data['admin'] = $userdetails->admin;
                 $data['logged_in'] = true;
                 $this->session->set_userdata($data);
                 redirect('account/loginSuccess', 'refresh');

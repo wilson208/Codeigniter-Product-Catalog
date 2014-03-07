@@ -16,7 +16,7 @@ class contact extends My_Controller {
         parent::__construct();
     }
     function index(){
-        parent::loadPage('contact/form', 'Contact Us');
+        parent::loadPage('contact/form');
     }
     
     function process(){

@@ -27,4 +27,16 @@ class My_Controller extends CI_Controller{
         $this->load->view($view, $data);
         $this->load->view('common/footer');
     }
+    
+    function loadAdmin($view, $data = array()){
+        session_start();
+        
+        if(isset($this->session->userdata['admin']) && $this->session->userdata['admin'] == 1){
+            $this->load->view('admin/common/header');
+            $this->load->view('admin/' . $view, $data);
+            $this->load->view('admin/common/footer');
+        }else{
+            redirect('account/login', 'refresh');
+        }
+    }
 }

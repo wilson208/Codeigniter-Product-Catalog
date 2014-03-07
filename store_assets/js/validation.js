@@ -26,18 +26,40 @@
             fieldSpan.className = 'glyphicon glyphicon-ok form-control-feedback';
         }
     }
-    function checkEmailTaken(){
-        var http;
-        if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-            http=new XMLHttpRequest();
-        }else{// code for IE6, IE5
-            http=new ActiveXObject("Microsoft.XMLHTTP");
+    
+    function validateEmail(){
+        var email = document.getElementById('email').value;
+        var fieldGroup = document.getElementById("emailGroup");
+        var fieldSpan = document.getElementById("emailSpan"); 
+        var errorLabel = document.getElementById("emailError");
+        
+        if(checkEmailFormat(email)){
+             var urlString = "../ajax_responders/emailTaken?email=".concat(email);
+             $.get( urlString, 
+                function( data ) { 
+                    if(JSON.parse(data).taken == 1){
+                        fieldGroup.className = 'form-group has-error has-feedback';
+                        fieldSpan.className = 'glyphicon glyphicon-remove form-control-feedback';
+                        errorLabel.innerHTML = 'Email Already Taken';
+                    }else{
+                        fieldGroup.className = 'form-group has-success has-feedback';
+                        fieldSpan.className = 'glyphicon glyphicon-ok form-control-feedback';
+                        errorLabel.innerHTML = 'Email Not Taken';
+                    }
+                }
+            ); 
+        }else{
+            fieldGroup.className = 'form-group has-error has-feedback';
+            fieldSpan.className = 'glyphicon glyphicon-remove form-control-feedback';
+            errorLabel.innerHTML = 'Email Wrong Format';
         }
-        http.onreadystatechange=function(){
-            if (http.readyState==4 && http.status==200){
-                document.getElementById("myDiv").innerHTML=http.responseText;
-            }
-        }
-        http.open("GET","ajax_info.txt",true);
-        http.send();
     }
+    
+    function checkEmailTaken(email){
+        
+       
+    }
+    function checkEmailFormat(email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    } 

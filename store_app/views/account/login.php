@@ -44,14 +44,16 @@
                 <input required="yes" name="surname" type="text" class="form-control" id="surname" placeholder="Surname">
             </div>
         
-            <div class="form-group">
+            <div id="emailGroup" class="form-group">
                 <label for="email">Email</label>
-                <input required="yes" name="email" type="email" class="form-control" id="email" placeholder="Forename">
+                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="<?php if(isset($email)){echo $email;} ?>" onchange="validateEmail()" onpropertychange="validateEmail()" onkeyup="validateEmail()">
+                <span id="emailSpan" class=""></span>
+                <label id="emailError"></label>
             </div>
 
             <div id="passwordGroup" class="form-group">
                 <label for="password">Password</label>
-                <input maxlength="20" required="yes" name="password" id="password" type="password" class="form-control" id="password" placeholder="Password" onkeyup="validatePassword()" onchange="validatePassword()" value="<?php if(isset($password)){echo $password;} ?>">
+                <input name="password" id='password' type="password" class="form-control" id="password" placeholder="Password" onkeyup="validatePassword()" onchange="validatePassword()" value="<?php if(isset($password)){echo $password;} ?>">
                 <span id="passwordSpan" class=""></span>
             </div>
 
