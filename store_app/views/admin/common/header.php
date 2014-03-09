@@ -39,15 +39,15 @@
             </li>
             
             <li <?php if($this->uri->segment(1) == 'blog'){ echo 'class="active"';} ?>>
-                <a href="<?php echo base_url('blog'); ?>">Blog</a>
+                <a href="<?php echo admin_url('blog'); ?>">Blog</a>
             </li>
             
             <li <?php if($this->uri->segment(1) == 'gallery'){ echo 'class="active"';} ?>>
-                <a href="<?php echo base_url('gallery'); ?>">Gallery</a>
+                <a href="<?php echo admin_url('gallery'); ?>">Gallery</a>
             </li>
             
-            <li <?php if($this->uri->segment(1) == 'contact'){ echo 'class="active"';} ?>>
-                <a href="<?php echo base_url('contact'); ?>">Contact Us</a>
+            <li <?php if($this->uri->segment(1) == 'Products'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('products'); ?>">Products</a>
             </li>
             
           </ul>

@@ -12,7 +12,7 @@ class Model_Gallery extends CI_Model{
             'order' => $order
         );
         $this->db->insert('gallery', $data);
-        return $this->db->inset_id();
+        return $this->db->insert_id();
     }
     
     function editGallery($id, $title, $image, $order){
