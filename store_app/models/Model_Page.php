@@ -26,7 +26,40 @@ class Model_Page extends CI_Model{
         }
     }
     
+    function getPages(){
+        return $this->db->get('page');
+    }
+    
     function getMenuPages(){
         return $this->db->query('SELECT `menu_title`, `url` FROM `page` WHERE `show_in_menu` = 1'); 
+    }
+    
+    function insertPage($page_title, $menu_title, $show_in_menu, $content, $css, $url){
+        $data = array(
+            'page_title'    => $page_title,
+            'menu_title'    => $menu_title,
+            'show_in_menu'  => $show_in_menu,
+            'content'       => $content,
+            'css'           => $css,
+            'url'           => $url
+        );
+        $this->db->insert('page', $data);
+        return $this->db->insert_id();
+    }
+    
+    function updatePage($id, $page_title, $menu_title, $show_in_menu, $content, $css, $url){
+        $data = array(
+            'page_title'    => $page_title,
+            'menu_title'    => $menu_title,
+            'show_in_menu'  => $show_in_menu,
+            'content'       => $content,
+            'css'           => $css,
+            'url'           => $url
+        );
+        $this->db->update('page', $data, array('id' => $id));
+    }
+    
+    function deletePage($id){
+        $this->db->delete('page', array('id' => $id));
     }
 }

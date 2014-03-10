@@ -34,20 +34,24 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             
-            <li <?php if($this->uri->segment(1) == 'home' || $this->uri->segment(1) == ''){ echo 'class="active"';} ?>>
+            <li <?php if($this->uri->segment(2) == 'home' || $this->uri->segment(1) == ''){ echo 'class="active"';} ?>>
                 <a href="<?php echo base_url('home'); ?>">Home</a>
             </li>
             
-            <li <?php if($this->uri->segment(1) == 'blog'){ echo 'class="active"';} ?>>
+            <li <?php if($this->uri->segment(2) == 'blog'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('blog'); ?>">Blog</a>
             </li>
             
-            <li <?php if($this->uri->segment(1) == 'gallery'){ echo 'class="active"';} ?>>
+            <li <?php if($this->uri->segment(2) == 'gallery'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('gallery'); ?>">Gallery</a>
             </li>
             
-            <li <?php if($this->uri->segment(1) == 'Products'){ echo 'class="active"';} ?>>
+            <li <?php if($this->uri->segment(2) == 'products'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('products'); ?>">Products</a>
+            </li>
+            
+            <li <?php if($this->uri->segment(2) == 'pages'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('pages'); ?>">Pages</a>
             </li>
             
           </ul>
