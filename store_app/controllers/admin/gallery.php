@@ -21,7 +21,7 @@ class gallery extends My_Controller{
         $this -> galleryItems = $this->gallery->getAll();
     }
     
-    function index(){
+    function index($data = array()){
         $data['gallery'] = $this -> galleryItems;
         
         //Get Files In Gallery Directory
@@ -59,9 +59,9 @@ class gallery extends My_Controller{
     }
     
     function upload(){
-        $config['upload_path'] = asset_url('images/gallery');
+        $config['upload_path'] = 'store_assets/images/gallery/';
         $config['allowed_types'] = 'gif|jpg|png';
-	$config['max_size']	= '2048';
+	$config['max_size']	= '1024';
 	$config['max_width']  = '1000';
 	$config['max_height']  = '1000';
 
@@ -69,10 +69,9 @@ class gallery extends My_Controller{
 
 	if ( ! $this->upload->do_upload('imagefile')){
             $data = array('upload_error' => $this->upload->display_errors());
-            echo $data['upload_error'];
-            parent::loadAdmin('gallery', $data);
+            $this->index($data);
 	}else{
-            redirect(admin_url('gallery'), 'refresh');
+            $this->index();
 	}
     }
 }
