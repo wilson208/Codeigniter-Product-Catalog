@@ -3,5 +3,6 @@
     <div>
         <?php echo $blog->row()->blog; ?>
     </div>
+    <h2>HI</h2>
 </div>
 
