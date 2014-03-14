@@ -131,8 +131,8 @@ class account extends My_Controller{
                 }
                 
                 $id = $this->Model_User->insertUser($data);
-                if(is_numeric($id) && $id > 0){
-                    
+                
+                if(is_numeric($id) && $id > 0){                    
                     parent::loadPage("account/registration-success");
                 }else{
                     parent::loadPage("account/registration-failure");
@@ -180,10 +180,8 @@ class account extends My_Controller{
 	$this->form_validation->set_rules('county', 'County', 'trim|xss_clean|max_length[40]');
 	$this->form_validation->set_rules('country', 'Country', 'trim|xss_clean|max_length[40]');
 	$this->form_validation->set_rules('phone', 'Phone', 'trim|xss_clean|max_length[16]');
-	$this->form_validation->set_rules('agree', 'Agree', 'trim|required');
         
-        if ($this->form_validation->run() != FALSE){
-            if($this->input->post('agree') != false){
+        if ($this->form_validation->run() != FALSE){          
                 
                 $data = array(
                     'title'     => $this->input->post('title'),
@@ -197,11 +195,35 @@ class account extends My_Controller{
                     'county'    => $this->input->post('county'),
                     'phone'     => $this->input->post('phone')
                 );
+                
+                if($this->input->post('newsletter') == 0){
+                    $data['newsletter'] = 0;
+                }else{
+                    $data['newsletter'] = 1;
+                }
+                
+                $id = $this->Model_User->updateUser($data);
+                
+                 if(is_numeric($id) && $id > 0){                    
+                    parent::loadPage("account/editDetails-success");
+                }else{
+                    parent::loadPage("account/editDetails-failure");
+                }
             }else{
                 parent::loadPage('account/edit_details', 'Edit Details',$data);
-            }
+            } 
+            
+            
+            
+    }
+    
+    function editPassword(){
+        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id']);
+            parent::loadPage('account/edit_password', 'Edit Password',$data);
+           
         }else{
-            parent::loadPage('account/edit_details', 'Edit Details',$data);
-        }       
+            $this->login();
+        }
     }
 }

@@ -31,7 +31,7 @@ class Model_User extends CI_Model{
         return $this->db->insert_id();
     }
     
-    function updateUsr($id, $data){
+    function updateUser($id, $data){
         $this->db->update('user', $data, array('id' => $id));
     }
     
