@@ -146,27 +146,16 @@ class account extends My_Controller{
         
     }
     
-    
-    //Success Pages
-    
-    function logoutSuccess(){
-        parent::loadPage('account/logout_success', 'Logout Successful'); 
-    }
-    
-    function loginSuccess(){
-        parent::loadPage('account/login_success', 'Login Successful'); 
-    }
-    
     function editDetails(){
         if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-            $data['user']= $this->Model_User->getUser($this->session->userdata['id']);
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->result();
             parent::loadPage('account/edit_details', 'Edit Details',$data);
            
         }else{
             $this->login();
         }
     }
-        
+    
     function processEditDetails(){
         
         $this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|max_length[5]');
@@ -202,7 +191,7 @@ class account extends My_Controller{
                     $data['newsletter'] = 1;
                 }
                 
-                $id = $this->Model_User->updateUser($data);
+                $id = $this->Model_User->updateUser($this->session->userdata['id'],$data);
                 
                  if(is_numeric($id) && $id > 0){                    
                     parent::loadPage("account/editDetails-success");
@@ -211,13 +200,10 @@ class account extends My_Controller{
                 }
             }else{
                 parent::loadPage('account/edit_details', 'Edit Details',$data);
-            } 
-            
-            
-            
-    }
-    
-    function editPassword(){
+            }             
+        }      
+     
+     function editPassword(){
         if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
             $data['user']= $this->Model_User->getUser($this->session->userdata['id']);
             parent::loadPage('account/edit_password', 'Edit Password',$data);
@@ -226,4 +212,16 @@ class account extends My_Controller{
             $this->login();
         }
     }
+     
+    //Success Pages
+    
+    function logoutSuccess(){
+        parent::loadPage('account/logout_success', 'Logout Successful'); 
+    }
+    
+    function loginSuccess(){
+        parent::loadPage('account/login_success', 'Login Successful'); 
+    }
+    
+  
 }

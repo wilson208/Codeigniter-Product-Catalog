@@ -83,9 +83,7 @@
                       <li><a href="<?php echo base_url('account/editDetails'); ?>">Edit Details</a></li>
                       <li><a href="<?php echo base_url('account/editPassword'); ?>">Edit Password</a></li>
                       <li><a>Order History</a></li>
-                  </ul>
-              
-                 
+                  </ul>                
               
               </li>
               <li>
