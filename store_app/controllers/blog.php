@@ -16,7 +16,7 @@ class blog extends My_Controller{
         parent::__construct();
         $this->load->model('Model_Blog');
     }
-    
+
     function index(){
         $this->all();
     }

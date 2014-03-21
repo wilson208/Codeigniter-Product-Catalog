@@ -131,8 +131,8 @@ class account extends My_Controller{
                 }
                 
                 $id = $this->Model_User->insertUser($data);
-                if(is_numeric($id) && $id > 0){
-                    
+                
+                if(is_numeric($id) && $id > 0){                    
                     parent::loadPage("account/registration-success");
                 }else{
                     parent::loadPage("account/registration-failure");
@@ -146,7 +146,73 @@ class account extends My_Controller{
         
     }
     
+    function editDetails(){
+        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->result();
+            parent::loadPage('account/edit_details', 'Edit Details',$data);
+           
+        }else{
+            $this->login();
+        }
+    }
     
+    function processEditDetails(){
+        
+        $this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|max_length[5]');
+	$this->form_validation->set_rules('forename', 'Forename', 'trim|xss_clean|max_length[15]');
+	$this->form_validation->set_rules('surname', 'Surname', 'trim|xss_clean|max_length[15]');
+	$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|max_length[50]|valid_email|is_unique[user.email]');
+	$this->form_validation->set_rules('address1', 'Address 1', 'trim|xss_clean|max_length[40]');
+	$this->form_validation->set_rules('address2', 'Address 2', 'trim|xss_clean|max_length[40]');
+	$this->form_validation->set_rules('town', 'Town', 'trim|xss_clean|max_length[40]');
+	$this->form_validation->set_rules('postcode', 'Postcode', 'xss_clean|max_length[8]');
+	$this->form_validation->set_rules('county', 'County', 'trim|xss_clean|max_length[40]');
+	$this->form_validation->set_rules('country', 'Country', 'trim|xss_clean|max_length[40]');
+	$this->form_validation->set_rules('phone', 'Phone', 'trim|xss_clean|max_length[16]');
+        
+        if ($this->form_validation->run() != FALSE){          
+                
+                $data = array(
+                    'title'     => $this->input->post('title'),
+                    'forename'  => $this->input->post('forename'),
+                    'surname'   => $this->input->post('surname'),
+                    'email'     => $this->input->post('email'),
+                    'address1'  => $this->input->post('address1'),
+                    'address2'  => $this->input->post('address2'),
+                    'town'      => $this->input->post('town'),
+                    'postcode'  => $this->input->post('postcode'),
+                    'county'    => $this->input->post('county'),
+                    'phone'     => $this->input->post('phone')
+                );
+                
+                if($this->input->post('newsletter') == 0){
+                    $data['newsletter'] = 0;
+                }else{
+                    $data['newsletter'] = 1;
+                }
+                
+                $id = $this->Model_User->updateUser($this->session->userdata['id'],$data);
+                
+                 if(is_numeric($id) && $id > 0){                    
+                    parent::loadPage("account/editDetails-success");
+                }else{
+                    parent::loadPage("account/editDetails-failure");
+                }
+            }else{
+                parent::loadPage('account/edit_details', 'Edit Details',$data);
+            }             
+        }      
+     
+     function editPassword(){
+        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id']);
+            parent::loadPage('account/edit_password', 'Edit Password',$data);
+           
+        }else{
+            $this->login();
+        }
+    }
+     
     //Success Pages
     
     function logoutSuccess(){
@@ -157,4 +223,5 @@ class account extends My_Controller{
         parent::loadPage('account/login_success', 'Login Successful'); 
     }
     
+  
 }

@@ -77,14 +77,22 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){?>
-              <li><a>Welcome <?php echo $this->session->userdata['name']; ?></a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <?php echo $this->session->userdata['name']; ?> <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                      <li><a href="<?php echo base_url('account/editDetails'); ?>">Edit Details</a></li>
+                      <li><a href="<?php echo base_url('account/editPassword'); ?>">Edit Password</a></li>
+                      <li><a>Order History</a></li>
+                  </ul>                
+              
+              </li>
               <li>
                 <a href="<?php echo base_url('account/processLogout'); ?>">Logout</a>
               </li>
             <?php }else{ ?>
               <li><a>Welcome Guest</a></li>
               <li <?php if($this->uri->segment(1) == 'account' && $this->uri->segment(2) == 'login'){ echo 'class="active"';} ?>>
-                <a href="<?php echo base_url('account/login'); ?>">Login</a>
+                <a href="<?php echo base_url('account/login'); ?>">Login/Register</a>
               </li>
             <?php } ?>
           </ul>
