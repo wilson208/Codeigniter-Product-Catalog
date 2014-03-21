@@ -31,8 +31,8 @@
             </div>
         
             <div class="form-group">
-                <label for="forename"><?php echo $forenameCurrent; ?></label>
-                <input name="forename" type="text" class="form-control" id="forename" placeholder="Forename" value="<?php if(isset($forename)){echo $forename;} ?>">
+                <label for="forename">Forename</label>
+                <input name="forename" type="text" class="form-control" id="forename" placeholder="Forename" value="<?php echo $forenameCurrent; ?>">
             </div>
         
             <div class="form-group">

@@ -43,4 +43,11 @@ class product extends My_Controller{
             $this->product->deleteAllProductReviews($id);
         }
     }
+    
+    function addProductImage(){
+        if($this->input->get('product_id')){
+            $this->product->insertProductImage($this->input->get('product_id'), '', 0, '');
+            redirect(admin_url('product/single?id=' . $id));
+        }
+    }
 }

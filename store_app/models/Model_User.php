@@ -22,13 +22,11 @@ class Model_User extends CI_Model{
     }
     
     function getUser($id){
-        //$this->db->where('id', $id);
-        //return $this->db->get('user');   
-        //return $this->db->get_where('user', array('id' => $id), 1, 0);
+        $this->db->where('id', $id);
+        $result = $this->db->get('user');   
         
-        $result = $this->db->query('SELECT * FROM `page` WHERE `url` = ? OR `id` = ? LIMIT 1', array($url, $url));
         if($result->num_rows() > 0){
-            return $result->row();
+            return $result;
         }else{
             return null;
         }
