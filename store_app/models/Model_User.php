@@ -38,13 +38,18 @@ class Model_User extends CI_Model{
     }
     
     function insertUser($data){
-        $data['password'] = hash("sha256", $data['password']);
+        $data['password'] = passwordHash($data['password']);
         $this->db->insert('user', $data);
         return $this->db->insert_id();
     }
     
     function updateUser($id, $data){
         $this->db->update('user', $data, array('id' => $id));
+        if($this->db->affected_rows() == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     function getAll(){
