@@ -15,6 +15,8 @@ class product extends My_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model('Model_Product', 'product');
+        $this->load->model('Model_Manufacturer', 'manufacturer');
+        $this->load->model('Model_Category', 'category');
     }
     
     function index(){
@@ -23,10 +25,13 @@ class product extends My_Controller{
     
     function single(){
         if($this->uri->segment(2) > 0){
+            
             $productId = $this->uri->segment(2);
             
             $data['product'] = $this->product->getProduct($productId);
             $data['productImages'] = $this->product->getProductImages($productId);
+            $data['productManufacturer'] = $this->manufacturer->getManufacturer($data['product']->row()->manufacturer);
+            $data['productCategory'] = $this->category->getCategory($data['product']->row()->category);
             
             $title = '';
             if($data['product']->num_rows() > 0){
@@ -48,8 +53,7 @@ class product extends My_Controller{
         
         if($this->input->get('manufacturer') != FALSE){
             $manufacturer = $this->input->get('manufacturer');
-            $this->load->model('Model_Manufacturer');
-            $result = $this->Model_Manufacturer->getManufacturer($manufacturer);
+            $result = $this->manufacturer->getManufacturer($manufacturer);
             if($result->num_rows() > 0){
                 $title = $result->row()->name;
             }
@@ -57,8 +61,7 @@ class product extends My_Controller{
         
         if($this->input->get('category') != FALSE){
             $category = $this->input->get('category');
-            $this->load->model('Model_Category');
-            $result = $this->Model_Category->getCategory($category);
+            $result = $this->category->getCategory($category);
             if($result->num_rows() > 0){
                 $title = $result->row()->name;
             }

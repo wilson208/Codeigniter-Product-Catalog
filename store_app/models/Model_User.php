@@ -48,13 +48,65 @@ class Model_User extends CI_Model{
     }
     
     function insertUser($data){
-        $data['password'] = hash("sha256", $data['password']);
+        $data['password'] = passwordHash($data['password']);
         $this->db->insert('user', $data);
         return $this->db->insert_id();
     }
     
     function updateUser($id, $data){
         $this->db->update('user', $data, array('id' => $id));
+        if($this->db->affected_rows() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    function getAll(){
+        $this->db->order_by("order", "asc"); 
+        $this->db->order_by('id', 'asc');
+        return $this->db->get('user');
+    }
+    
+    function newUser($id, $title, $forename, $surname, $email, $address1, $address2, $town, $postcode, $county, $country, $phone){
+        $data = array(
+            'id'    => $id,
+            'title'    => $title,
+            'forename'    => $forename,
+            'surname'  => $surname,
+            'email'     => $email,
+            'address1'       => $address1,
+            'address2'       => $address2,
+            'town'       => $town,
+            'postcode'       => $postcode,
+            'county'       => $county,
+            'country'       => $country,
+            'phone' => $phone
+        );
+        $this->db->insert('user', $data);
+        return $this->db->insert_id();
+    }
+    
+    function changeUser($id, $title, $forename, $surname, $email, $address1, $address2, $town, $postcode, $county, $country, $phone){
+        $data = array(
+            'id'    => $id,
+            'title'    => $title,
+            'forename'    => $forename,
+            'surname'  => $surname,
+            'email'     => $email,
+            'address1'       => $address1,
+            'address2'       => $address2,
+            'town'       => $town,
+            'postcode'       => $postcode,
+            'county'       => $county,
+            'country'       => $country,
+            'phone' => $phone
+        );
+        $this->db->update('user', $data, array('id' => $id));
+    }
+    
+    function deleteUser($id){
+        $this->db->delete('user', array('id' => $id));
     }
     
     function getAll(){
