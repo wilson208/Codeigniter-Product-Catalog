@@ -50,7 +50,7 @@ class Model_Product extends CI_Model{
      * @param type $data
      */
     function updateProduct($id, $data){
-        $this->db->update();
+        $this->db->update('product', $data, array('id' => $id));
     }
     function deleteProduct($id){
         $this->db->delete('product', array('id' => $id));
