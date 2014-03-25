@@ -101,6 +101,18 @@
 <div class="row">
     <h1>Additional Product Images</h1>
     <a href="<?php echo admin_url('product/addProductImage?product_id=' . $product->id); ?>">Add New</a>
+    <?php if(isset($upload_error)){ echo '<p>' . $upload_error . '</p>'; } ?>
+    <?php echo form_open_multipart(admin_url('upload'), array('role' => 'form', 'class' => 'form-inline'));?>
+        <input type="hidden" name="path" value="products"/>
+        <input type="hidden" name="redirect" value="<?php echo 'product/single?id=' . $product->id; ?>"/>
+        <div class="form-group">
+            <label class="sr-only" for="imagefile">Choose File:</label>
+            <input type="file" class="form-control" id="imagefile" name="imagefile">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="upload">
+        </div>
+    </form>
     <?php echo form_open(admin_url('product/updateImages')); ?>
         <input type="hidden" name="product_id" value="<?php echo $product->id; ?>" />
         <table class="table table-responsive table-striped">
@@ -117,14 +129,7 @@
                 <input class="form-control" type="hidden" name="id<?php echo $count;?>" value="<?php echo $image->id;?>" />
                 <td><input class="form-control" type="text" name="description<?php echo $count;?>" size="100" value="<?php echo set_value('description' . $count, $image->description); ?>"/></td>
                 <td>
-                    <select class="form-control" name="image<?php echo $count; ?>">
-                        <?php foreach($images as $imageFile){ ?>
-                        <!-- imageFile: <?php echo $imageFile; ?>   Saved URL: <?php echo $image->url; ?>   Element Name: <?php echo 'image' . $count; ?> -->
-                        <option value="<?php echo $imageFile; ?>" <?php if($imageFile == $image->url){echo 'selected="selected"';} ?> <?php echo set_select('image' . $count, $image->url); ?>>
-                            <?php echo $imageFile; ?>
-                        </option>
-                        <?php } ?>
-                    </select>
+                    <?php echo form_dropdown('image' . $count, $images, array($image->url), 'class="form-control"'); ?>
                 </td>
                 <td>
                     <input class="form-control" type="number" step="1" name="order<?php echo $count; ?>" value="<?php echo set_value('order' . $count, $image->order); ?>"

@@ -18,24 +18,20 @@ class upload extends My_Controller{
     
     function index(){
         $redirect = null;
-        if($this->input->get('redirect')){
-            $redirect = admin_url($this->input->get('redirect'));
+        if($this->input->post('redirect')){
+            $redirect = admin_url($this->input->post('redirect'));
         }else{
             $redirect = admin_url();
         }
-        
-        if($this->input->get('path')){  
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size']	= '100';
-            $config['max_width']  = '1024';
-            $config['max_height']  = '768';
-
-            $this->load->library('upload', $config);
-            $this->upload->do_upload();
-        }
-        
-        redirect($redirect, 'refresh');
-        
+            
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '1024';
+        $config['max_width']  = '1000';
+        $config['max_height']  = '1000';
+        $config['upload_path'] = 'store_assets/images/'. $this->input->post('path') . '/';
+            
+        $this->load->library('upload', $config);
+        $this->upload->do_upload('imagefile');
+        redirect($redirect, 'refresh');        
     }
 }

@@ -75,16 +75,33 @@
             <?php } ?>
             
           </ul>
+            
           <ul class="nav navbar-nav navbar-right">
             <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){?>
+              <li class="dropdown">
+                  <a href="<?php echo base_url('checkout');?>" class="dropdown-toggle" data-toggle="dropdown">Cart <b class="caret"></b></a>
+                  <table class="table table-responsive table-striped dropdown-menu">
+                      <?php foreach($this->cart->contents() as $item){ ?>
+                      <tr>
+                          <td><?php echo 'X' . $item['qty'] . ' ' . $item['name'] . ' @ £' . $item['price']; ?></td>
+                      </tr>
+                      <?php } ?>
+                      <tr>
+                          <td>Total: <?php echo "£" . $this->cart->total(); ?></td>
+                      </tr>
+                      <tr>
+                          <td><a href="<?php echo base_url('checkout');?>">Checkout</a></td>
+                      </tr>
+                  </table>
+              </li>
+              
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <?php echo $this->session->userdata['name']; ?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                       <li><a href="<?php echo base_url('account/editDetails'); ?>">Edit Details</a></li>
                       <li><a href="<?php echo base_url('account/editPassword'); ?>">Edit Password</a></li>
                       <li><a>Order History</a></li>
-                  </ul>                
-              
+                  </ul>
               </li>
               <li>
                 <a href="<?php echo base_url('account/processLogout'); ?>">Logout</a>

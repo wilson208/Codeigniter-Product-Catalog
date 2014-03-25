@@ -138,8 +138,8 @@ class Model_Product extends CI_Model{
     function deleteAllProductSpecials($product_id){
         
     }
-    function getProductSpecials($product_id){
-        
+    function getProductSpecials($product_id, $current = true){
+        return null;
     }
     
     

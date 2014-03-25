@@ -27,9 +27,14 @@ class product extends My_Controller{
             $this->load->model('Model_Manufacturer', 'manufacturer');
             $this->load->model('Model_Category', 'category');
             
+            $images = array_diff(scandir('store_assets/images/products/'), array('.', '..'));
+            $data['images'] = array();
+            foreach($images as $image){
+                $data['images'][$image] = $image;
+            }
+            
             $data['categories']     = $this->category->getCategories();
             $data['manufacturers']  = $this->manufacturer->getManufacturers();
-            $data['images']         = array_diff(scandir('store_assets/images/products/'), array('.', '..'));
             $data['product']        = $this->product->getProduct($product_id);
             $data['productImages']  = $this->product->getProductImages($product_id);
             $data['productSpecials']= $this->product->getProductSpecials($product_id);
@@ -47,6 +52,12 @@ class product extends My_Controller{
             $this->product->deleteAllProductSpecials($id);
             $this->product->deleteAllProductReviews($id);
         }
+    }
+    
+    function deleteImage(){
+        $productImage = $this->input->get('id');
+        $this->product->deleteProductImage($productImage);
+        redirect($_SERVER['HTTP_REFERER'], 'refresh');
     }
     
     function addProductImage(){
@@ -95,16 +106,13 @@ class product extends My_Controller{
             );
             
             $this->product->updateProduct($id, $updateData);
-            $this->single($product_id ,array('message' => 'Updated Successfully'));
+            redirect(admin_url('product/single?id=' . $product_id), 'refresh');
         }else{
             $this->single($product_id);
         }
     }
     
     function updateImages(){
-        
-        var_dump($_POST);
-        
         if($this->input->post('product_id')){
             $product_id = $this->input->post('product_id');
             $currentImages = $this->product->getProductImages($product_id);
@@ -130,6 +138,31 @@ class product extends My_Controller{
             }else{
                 $this->single($product_id);
             }
+        }
+    }
+    
+    function updateSpecials(){
+        if($this->input->post('product_id')){
+            $product_id = $this->input->post('product_id');
+        }
+    }
+    
+    function addToCart(){
+        $product_id = $this->input->get('product_id');
+        if($product_id != FALSE){
+            $product = $this->product->getProduct($product_id)->row();
+            $product_special = $this->product->getProductSpecials($product_id, true)->row();
+            $data = array(
+               'id'      => $product->id,
+               'qty'     => 1,
+               'name'    => $product->name
+            );
+            if($product_special != null){
+                $data['price'] = $product->row()->price;
+            }else{
+                $data['price'] = $product->price;
+            }
+            $this->cart->insert($data);
         }
     }
 }
