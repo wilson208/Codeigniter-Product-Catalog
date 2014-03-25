@@ -83,11 +83,11 @@
                   <table class="table table-responsive table-striped dropdown-menu">
                       <?php foreach($this->cart->contents() as $item){ ?>
                       <tr>
-                          <td><?php echo 'X' . $item['qty'] . ' ' . $item['name'] . ' @ £' . $item['price']; ?></td>
+                          <td><?php echo $item['qty'] . 'x ' . $item['name'] . ' @ £' . number_format($item['price'], 2, '.', ''); ?> <a href="<?php echo base_url('product/deleteFromCart?rowid=' . $item['rowid']); ?>">Remove</a></td>
                       </tr>
                       <?php } ?>
                       <tr>
-                          <td>Total: <?php echo "£" . $this->cart->total(); ?></td>
+                          <td>Total: <?php echo "£" . number_format($this->cart->total(), 2, '.', ''); ?></td>
                       </tr>
                       <tr>
                           <td><a href="<?php echo base_url('checkout');?>">Checkout</a></td>

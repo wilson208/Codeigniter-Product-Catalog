@@ -72,4 +72,53 @@ class product extends My_Controller{
         parent::loadPage('product/list', 'Products', $data);
         
     }
+    
+    function addToCart(){
+        $product_id = $this->input->post('product_id');
+        $quantity = $this->input->post('quantity');
+        
+        $itemInCart = null;
+        $cartItems = $this->cart->contents();
+        foreach($cartItems as $item){
+            if($item['id'] == $product_id){
+                $itemInCart = $item;
+            }
+        }
+        
+        if($product_id != false && $quantity != false){
+            if($itemInCart != null){
+                $newQuantity = $itemInCart['qty'] + $quantity;
+                $data = array(
+                    'rowid' => $itemInCart['rowid'],
+                    'qty' => $newQuantity
+                );
+                $this->cart->update($data);
+            }else{
+                $product = $this->product->getProduct($product_id);
+                $product_special = $this->product->getProductSpecials($product_id);
+
+                $data = array(
+                   'id'      => $product->row()->id,
+                   'qty'     => $quantity,
+                   'price'   => $product->row()->price,
+                   'name'    => $product->row()->name
+                );
+
+                if($product_special != null && $product_special->num_rows() > 0){
+                    $data['price'] = $product_special->row()->price;
+                }
+                $this->cart->insert($data);
+            }
+        }
+        redirect(base_url('product/' . $product_id), 'refresh');
+    }
+    
+    function deleteFromCart(){
+        $row_id = $this->input->get('rowid');
+        $last_url = $_SERVER['HTTP_REFERER'];
+        if($row_id != false){
+            $this->cart->update(array('rowid' => $row_id, 'qty' => 0));
+        }
+        redirect($last_url, 'refresh');
+    }
 }

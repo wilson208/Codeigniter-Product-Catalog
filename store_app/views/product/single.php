@@ -37,7 +37,11 @@
     
     <div class="row bottom-buffer">
         <div class="col-lg-6">
-            <button class="btn btn-block btn-default btn-primary">Add To Cart</button>
+            <?php echo form_open('product/addToCart'); ?>
+            <?php echo form_hidden('quantity', '1'); ?>
+            <?php echo form_hidden('product_id', $product->row()->id); ?>
+            <input type="submit" class="btn btn-block btn-default btn-primary" value="Add To Cart" />
+            </form>
         </div>
     </div>
     
