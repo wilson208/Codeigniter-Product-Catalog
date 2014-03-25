@@ -102,7 +102,7 @@ class Model_Product extends CI_Model{
             'order'         => $order,
             'description'   => $description
         );
-        $this->db->update('product', $data, array('id' => $id));
+        $this->db->update('product_image', $data, array('id' => $id));
     }
     function deleteProductImage($id){
         $this->db->delete('product_image', array('id' => $id));

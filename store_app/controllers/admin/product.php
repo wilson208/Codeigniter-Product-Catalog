@@ -99,7 +99,37 @@ class product extends My_Controller{
         }else{
             $this->single($product_id);
         }
+    }
+    
+    function updateImages(){
         
+        var_dump($_POST);
         
+        if($this->input->post('product_id')){
+            $product_id = $this->input->post('product_id');
+            $currentImages = $this->product->getProductImages($product_id);
+            
+            for($x = 1; $x <= $currentImages->num_rows(); $x++){
+                $this->form_validation->set_rules('id' . $x, 'ID', 'required|integer');
+                $this->form_validation->set_rules('image' . $x, 'Image', 'required|max_length[100]');
+                $this->form_validation->set_rules('order' . $x, 'Order', 'integer');
+                $this->form_validation->set_rules('description' . $x, 'Description', 'required');
+            }
+            
+            if($this->form_validation->run() != FALSE){
+                for($x = 1; $x <= $currentImages->num_rows(); $x++){
+                    $id         = $this->input->post('id' . $x);
+                    $image      = $this->input->post('image' . $x);
+                    $order      = $this->input->post('order' . $x);
+                    $description= $this->input->post('description' . $x);
+
+                    $this->product->editProductImage($id, $product_id, $image, $order, $description);
+                }
+                
+                redirect(admin_url('product/single?id=' . $product_id, 'refresh'));
+            }else{
+                $this->single($product_id);
+            }
+        }
     }
 }

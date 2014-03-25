@@ -83,8 +83,8 @@
                 <div class="form-group">
                     <label for="product_status">Status:</label>
                     <select name="product_status" id="product_status" class="form-control">
-                        <option value="1" <?php echo set_select('product_status', '1', true); ?>>Enabled</option>
-                        <option value="0" <?php echo set_select('product_status', '0', true); ?>>Disabled</option>
+                        <option value="1" <?php echo set_select('product_status', '1'); ?>>Enabled</option>
+                        <option value="0" <?php echo set_select('product_status', '0'); ?>>Disabled</option>
                     </select>
                 </div>
             </div>
@@ -102,15 +102,41 @@
     <h1>Additional Product Images</h1>
     <a href="<?php echo admin_url('product/addProductImage?product_id=' . $product->id); ?>">Add New</a>
     <?php echo form_open(admin_url('product/updateImages')); ?>
+        <input type="hidden" name="product_id" value="<?php echo $product->id; ?>" />
         <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <td>Description</td>
+                    <td>Image</td>
+                    <td>Order</td>
+                </tr>
+            </thead>
         <?php $count = 1; ?>
         <?php foreach($productImages->result() as $image){ ?>
             <tr>
-                <input type="hidden" name="id<?php echo $count;?>" value="<?php echo $image->id;?>" />
-                <td><input type="text"</td>
+                <input class="form-control" type="hidden" name="id<?php echo $count;?>" value="<?php echo $image->id;?>" />
+                <td><input class="form-control" type="text" name="description<?php echo $count;?>" size="100" value="<?php echo set_value('description' . $count, $image->description); ?>"/></td>
+                <td>
+                    <select class="form-control" name="image<?php echo $count; ?>">
+                        <?php foreach($images as $imageFile){ ?>
+                        <!-- imageFile: <?php echo $imageFile; ?>   Saved URL: <?php echo $image->url; ?>   Element Name: <?php echo 'image' . $count; ?> -->
+                        <option value="<?php echo $imageFile; ?>" <?php if($imageFile == $image->url){echo 'selected="selected"';} ?> <?php echo set_select('image' . $count, $image->url); ?>>
+                            <?php echo $imageFile; ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="number" step="1" name="order<?php echo $count; ?>" value="<?php echo set_value('order' . $count, $image->order); ?>"
+                </td>
+                <td>
+                    <a href="<?php echo admin_url('product/deleteImage?id=' . $image->id); ?>">Delete Image</a>
+                </td>
             </tr>
+        <?php $count++; ?>
         <?php } ?>
         </table>
+        <input class="btn btn-primary" type="submit" value="Save Product Images" />
     </form>
 </div>
 
