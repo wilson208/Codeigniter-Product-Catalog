@@ -119,6 +119,7 @@
     
     <div class="container">
         <div class="row">
+<?php if(!$fullWidth){ ?>            
             <div class="col-md-3">
                 <div class="list-group">
                     <p>Shop By Brand</p>
@@ -128,5 +129,9 @@
                 </div>
             </div>
             <div class="col-md-9">
+<?php }else{ ?>
+                <div class="col-md-12">
+<?php } ?>
+
                 
            

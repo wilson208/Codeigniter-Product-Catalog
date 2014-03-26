@@ -13,13 +13,14 @@
             <tr>
                 <td><?php echo $item['name']; ?></td>
                 <td><?php echo $item['qty']; ?></td>
-                <td><?php echo $item['price']; ?></td>
+                <td><?php echo "£" . number_format($item['price'], 2, '.', ''); ?></td>
                 <td><a href="<?php echo base_url('product/deleteFromCart?rowid=' . $item['rowid']); ?>"></a></td>
             </tr>
             <?php } ?>
         </tbody>
         <tfoot>
             <tr>
+                <td></td>
                 <td>Total:</td>
                 <td><?php echo "£" . number_format($this->cart->total(), 2, '.', ''); ?></td>
             </tr>

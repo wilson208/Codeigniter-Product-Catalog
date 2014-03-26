@@ -12,16 +12,19 @@
  * @author Wilson McCoubrey <wilson@mccoubreys.co.uk>
  */
 class My_Controller extends CI_Controller{
-    function __construct() {
+    private $fullWidth;
+    function __construct($fullWidth = false) {
         parent::__construct();
+        $this->fullWidth = $fullWidth;
     }
     function loadPage($view, $title = 'Online Store', $data = array()){
         $this->load->model('Model_Category', 'category');
         $this->load->model('Model_Manufacturer', 'manufacturer');
         
-        $headData['categories'] = $this->category->getTopLevel();
-        $headData['manufacturers'] = $this->manufacturer->getManufacturers();
-        $headData['title']      = $title;
+        $headData['categories']     = $this->category->getTopLevel();
+        $headData['manufacturers']  = $this->manufacturer->getManufacturers();
+        $headData['title']          = $title;
+        $headData['fullWidth']      = $this->fullWidth;
         
         $this->load->view('common/header', $headData);
         $this->load->view($view, $data);

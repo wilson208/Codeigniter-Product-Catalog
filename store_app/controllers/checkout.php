@@ -12,7 +12,9 @@
  * @author Wilson McCoubrey <wilson@mccoubreys.co.uk>
  */
 class checkout extends My_Controller{
-    
+    function __construct() {
+        parent::__construct(true);
+    }
     function index(){
         parent::loadPage('checkout');
     }

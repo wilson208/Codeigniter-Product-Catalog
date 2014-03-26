@@ -13,7 +13,7 @@
  */
 class contact extends My_Controller {
     function __construct() {
-        parent::__construct();
+        parent::__construct(true);
     }
     function index(){
         parent::loadPage('contact/form');

@@ -13,7 +13,7 @@
  */
 class gallery extends My_Controller{
     function __construct() {
-        parent::__construct();
+        parent::__construct(true);
         $this->load->model('Model_Gallery', 'gallery');
     }
     
