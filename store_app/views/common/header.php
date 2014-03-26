@@ -68,7 +68,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?php foreach($categories->result() as $category){ ?>
-                    <li><a href="<?php echo base_url('product?category=' . $category->id) ;?>"><?php echo $category->name;?></a></li>
+                    <li><a href="<?php echo base_url('category/' . $category->id) ;?>"><?php echo $category->name;?></a></li>
                     <?php } ?> 
               </ul>
             </li>
@@ -124,9 +124,12 @@
                 <div class="list-group">
                     <p>Shop By Brand</p>
                     <?php foreach($manufacturers->result() as $manufacturer){ ?>
-                    <a href="<?php echo base_url('product?manufacturer=' . $manufacturer->id) ;?>" class="list-group-item"><?php echo $manufacturer->name;?></a>
+                    <a href="<?php echo base_url('manufacturer/' . $manufacturer->id) ;?>" class="list-group-item"><?php echo $manufacturer->name;?></a>
                     <?php } ?>
                 </div>
+                <div class="alert alert-info">See Our <a>Special Offers</a></div>
+                <div class="alert alert-success"><a href="<?php echo base_url('account/register');?>">Register</a> & Join Our Newsletter</div>
+                <div class="alert alert-info"><a href="<?php echo base_url('gallery');?>">Look Around</a> Our Store</div>
             </div>
             <div class="col-md-9">
 <?php }else{ ?>

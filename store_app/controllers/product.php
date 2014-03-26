@@ -76,15 +76,15 @@ class product extends My_Controller{
     }
     
     function manufacturer(){
-        if(is_numeric($this->uri->segment(3))){
-            $this->all($this->uri->segment(3));
+        if(is_numeric($this->uri->segment(2))){
+            $this->all($this->uri->segment(2));
         }else{
             $this->all();
         }
     }
     function category(){
-        if(is_numeric($this->uri->segment(3))){
-            $this->all(null, $this->uri->segment(3));
+        if(is_numeric($this->uri->segment(2))){
+            $this->all(null, $this->uri->segment(2));
         }else{
             $this->all();
         }
