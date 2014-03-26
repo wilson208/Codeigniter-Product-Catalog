@@ -46,13 +46,13 @@ class product extends My_Controller{
         }
     }
     
-    function all(){
-        $manufacturer = null;
-        $category = null;
+    function all($manufacturer = null, $category = null){
         $title = "Products";
         
         if($this->input->get('manufacturer') != FALSE){
             $manufacturer = $this->input->get('manufacturer');
+        }
+        if($manufacturer != null){
             $result = $this->manufacturer->getManufacturer($manufacturer);
             if($result->num_rows() > 0){
                 $title = $result->row()->name;
@@ -61,6 +61,8 @@ class product extends My_Controller{
         
         if($this->input->get('category') != FALSE){
             $category = $this->input->get('category');
+        }
+        if($category != null){
             $result = $this->category->getCategory($category);
             if($result->num_rows() > 0){
                 $title = $result->row()->name;
@@ -71,6 +73,21 @@ class product extends My_Controller{
         $data['title'] = $title;
         parent::loadPage('product/list', 'Products', $data);
         
+    }
+    
+    function manufacturer(){
+        if(is_numeric($this->uri->segment(3))){
+            $this->all($this->uri->segment(3));
+        }else{
+            $this->all();
+        }
+    }
+    function category(){
+        if(is_numeric($this->uri->segment(3))){
+            $this->all(null, $this->uri->segment(3));
+        }else{
+            $this->all();
+        }
     }
     
     function addToCart(){
