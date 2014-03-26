@@ -45,6 +45,7 @@ $route['page/:any'] = "page";
 $route['category/:num'] = "product/category";
 $route['product/:num'] = "product";
 $route['manufacturer/:num'] = "product/manufacturer";
+$route['blog/:any'] = "blog/single";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

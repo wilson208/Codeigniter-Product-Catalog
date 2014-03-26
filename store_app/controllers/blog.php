@@ -31,15 +31,21 @@ class blog extends My_Controller{
     }
     
     function single(){
-        if($this->input->get('blog_id') == false){
-            redirect('blog', 'refresh');
-        }else{
-            $data['blog'] = $this->Model_Blog->getBlog($this->input->get('blog_id'));
-            if($data['blog']->num_rows > 0){
-                parent::loadPage('blog/single', 'Blog', $data);
-            }else{
-                redirect('blog', 'refresh');
-            }
+        $blog_id = -1;
+        if($this->input->get('blog_id')){
+            $blog_id = $this->input->get('blog_id');
+        }else if(is_numeric($this->uri->segment(2))){
+            $blog_id = $this->uri->segment(2);
+        }else if(is_string($this->uri->segment(2)) && strlen($this->uri->segment(2)) > 0){
+            $blog_id = $this->Model_Blog->getBlogId($this->uri->segment(2));
         }
+        
+        $data['blog'] = $this->Model_Blog->getBlog($blog_id);
+        if($data['blog']->num_rows > 0){
+            parent::loadPage('blog/single', 'Blog', $data);
+        }else{
+            redirect('blog', 'refresh');
+        }
+        
     }
 }
