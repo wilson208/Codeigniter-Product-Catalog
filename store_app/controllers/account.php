@@ -191,13 +191,14 @@ class account extends My_Controller{
                     $data['newsletter'] = 1;
                 }
                 
-                $id = $this->Model_User->updateUser($this->session->userdata['id'],$data);
+                $this->Model_User->updateUser($this->session->userdata['id'],$data);
+                parent::loadPage('account/edit_details', 'Edit Details',$data);
                 
-                 if(is_numeric($id) && $id > 0){                    
+                /*if(is_numeric($id) && $id > 0){                    
                     parent::loadPage("account/editDetails-success");
                 }else{
                     parent::loadPage("account/editDetails-failure");
-                }
+                }*/
             }else{
                 parent::loadPage('account/edit_details', 'Edit Details',$data);
             }             
@@ -205,11 +206,41 @@ class account extends My_Controller{
      
      function editPassword(){
         if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-            $data['user']= $this->Model_User->getUser($this->session->userdata['id']);
-            parent::loadPage('account/edit_password', 'Edit Password',$data);
+           
+            parent::loadPage('account/edit_password', 'Edit Password');
            
         }else{
             $this->login();
+        }
+    }
+    
+    function processEditPassword()
+    {
+        $this->form_validation->set_rules('passwordOld', 'Password Old', 'required|xss_clean');
+	$this->form_validation->set_rules('passwordNew', 'Password New', 'required|min_length[8]|matches[passwordConfirm]');
+        $this->form_validation->set_rules('passwordConfrm', 'Password Confirm', 'required');
+        
+        if ($this->form_validation->run() != FALSE)//If form meets the rules set out above. 
+        {  
+            $email = $this->session->userdata['email'];
+            $password = $this->input->post('passwordOld');
+            $encryptedPassword = hash("sha256", $password);
+            
+            $user_id = $this->Model_User->verifyLogin($email, $encryptedPassword); //Returns user_id if valid login. Else, returns false.
+            if($user_id != false)
+            {    
+                $data = $this->input->post('passwordNew');
+                $this->Model_User->updateUser($user_id,$data);     
+                parent::loadPage('account/editPass-success', 'Error!');
+            }
+            else
+            {
+                parent::loadPage('account/editPass-failure', 'Error!');
+            }
+        }
+        else
+        {
+            parent::loadPage('account/editPass-failure', 'Error!');
         }
     }
      
