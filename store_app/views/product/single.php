@@ -61,7 +61,25 @@
     
 </div>
 
-
+<div>
+    <h1>Reviews</h1>
+    
+    <?php
+    $count = 0;
+    while($count < 5)
+    {
+    ?>
+        <div>Name                                 date</div>
+        <div>
+            <textarea>
+                
+            </textarea>
+        </div>        
+    <?php
+        $count ++;
+    }
+    ?>
+</div> 
 
 
 <?php }else{ ?>
