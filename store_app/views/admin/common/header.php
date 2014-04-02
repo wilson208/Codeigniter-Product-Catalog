@@ -47,11 +47,19 @@
             </li>
             
             <li <?php if($this->uri->segment(2) == 'products'){ echo 'class="active"';} ?>>
-                <a href="<?php echo admin_url('products'); ?>">Products</a>
+                <a href="<?php echo admin_url('product'); ?>">Products</a>
             </li>
             
             <li <?php if($this->uri->segment(2) == 'pages'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('pages'); ?>">Pages</a>
+            </li>
+            
+            <li <?php if($this->uri->segment(2) == 'users'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('user'); ?>">Users</a>
+            </li>
+            
+            <li <?php if($this->uri->segment(2) == 'users'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('user'); ?>">Users</a>
             </li>
             
           </ul>

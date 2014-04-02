@@ -1,6 +1,8 @@
 <div class="col-md-6">
     <?php if(isset($upload_error)){ echo '<p>' . $upload_error . '</p>'; } ?>
-    <?php echo form_open_multipart(admin_url('gallery/upload'), array('role' => 'form', 'class' => 'form-inline'));?>
+    <?php echo form_open_multipart(admin_url('upload'), array('role' => 'form', 'class' => 'form-inline'));?>
+        <input type="hidden" name="path" value="gallery"/>
+        <input type="hidden" name="redirect" value="gallery"/>
         <div class="form-group">
             <label class="sr-only" for="imagefile">Choose File:</label>
             <input type="file" class="form-control" id="imagefile" name="imagefile">

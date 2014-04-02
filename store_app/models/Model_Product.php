@@ -50,10 +50,10 @@ class Model_Product extends CI_Model{
      * @param type $data
      */
     function updateProduct($id, $data){
-        $this->db->update();
+        $this->db->update('product', $data, array('id' => $id));
     }
     function deleteProduct($id){
-        
+        $this->db->delete('product', array('id' => $id));
     }
     function getProduct($id){
         return $this->db->get_where('product', array('id' => $id), 1, 0);
@@ -81,18 +81,41 @@ class Model_Product extends CI_Model{
         return $this->db->get('product');
     }
     
-    function insertProductImage($productId, $url){
+    
+    
+    
+    function insertProductImage($productId, $url, $order, $description){
+        $data = array(
+            'product_id'    => $productId,
+            'url'           => $url,
+            'order'         => $order,
+            'description'   => $description
+        );
         
+        $this->db->insert('product_image', $data);
+        return $this->db->insert_id();
     }
-    function editProductImage($id, $url){
-        
+    function editProductImage($id, $productId, $url, $order, $description){
+        $data = array(
+            'product_id'    => $productId,
+            'url'           => $url,
+            'order'         => $order,
+            'description'   => $description
+        );
+        $this->db->update('product_image', $data, array('id' => $id));
     }
     function deleteProductImage($id){
-        
+        $this->db->delete('product_image', array('id' => $id));
+    }
+    function deleteAllProductImages($product_id){
+        $this->db->delete('product_image', array('product_id' => $product_id));
     }
     function getProductImages($productId){
         return $this->db->get_where('product_image', array('product_id' => $productId));
     }
+    
+    
+    
     
     /**
      * This method inserts a product special for a product.
@@ -104,53 +127,35 @@ class Model_Product extends CI_Model{
      * @return int id of inserted product special
      */
     function insertProductSpecial($productId, $specialPrice, $startDate = null, $stopDate = null){
-        return 1;
+        
     }
-    
-    
     function editProductSpecial($id, $specialPrice, $startDate = null, $stopDate = null){
         
     }
     function deleteProductSpecial($id){
         
     }
+    function deleteAllProductSpecials($product_id){
+        
+    }
+    function getProductSpecials($product_id, $current = true){
+        return null;
+    }
     
-    /**
-     * This method inserts review for a product
-     * 
-     * @param int $productId
-     * @param int $rating between 1 and 5
-     * @param string $review (optional)
-     * @param string $name (optional)
-     * 
-     * @return null On Fail return null
-     * @return int Return the inserted id
-     */
+    
     function insertProductReview($productId, $rating, $review="", $name="Anonymous"){
         
     }
-    
-    /**
-     * This method updates review for a product
-     * 
-     * @param int $id The id of the product review
-     * @param int $rating between 1 and 5
-     * @param string $review (optional)
-     * @param string $name (optional)
-     * 
-     * @return boolean true on success, false on fail.
-     */
     function editProductReview($id, $rating, $review="", $name="Anonymous"){
         
     }
-    
-    /**
-     * This method deletes a review of a product
-     * 
-     * @param type $id
-     * @return boolean true on success, false on fail.
-     */
     function deleteProductReview($id){
+        
+    }
+    function deleteAllProductReviews($product_id){
+        
+    }
+    function getProductReviews($product_id){
         
     }
 }

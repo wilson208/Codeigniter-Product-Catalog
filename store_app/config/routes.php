@@ -42,9 +42,10 @@ $route['default_controller'] = "home";
 $route['404_override'] = '';
 
 $route['page/:any'] = "page";
-$route['category/:any'] = "category";
+$route['category/:num'] = "product/category";
 $route['product/:num'] = "product";
-$route['manufacturer/:num'] = "manufacturer";
+$route['manufacturer/:num'] = "product/manufacturer";
+$route['blog/:any'] = "blog/single";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2014 at 12:27 AM
+-- Generation Time: Mar 26, 2014 at 10:05 AM
 -- Server version: 5.5.25
 -- PHP Version: 5.2.17
 
@@ -20,9 +20,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `blog`
 --
 
-CREATE TABLE IF NOT EXISTS `blog` (
+DROP TABLE IF EXISTS `blog`;
+CREATE TABLE `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
+  `seo_url` varchar(40) NOT NULL,
   `blog` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
@@ -34,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `blog` (
 -- Dumping data for table `blog`
 --
 
-INSERT INTO `blog` (`id`, `title`, `blog`, `status`, `user_id`, `date_created`) VALUES
-(1, 'Blog Post #1', '<h2>This is a blog post</h2>\r\n<p>Lorem Ipsum Dolar Sit Amet</p>', 1, 1, '2014-02-22 23:10:26'),
-(2, 'Blog Post #2', '<h2>This is a blog post</h2>\r\n<p>Lorem Ipsum Dolar Sit Amet</p>', 1, 1, '2014-02-22 23:10:26');
+INSERT INTO `blog` (`id`, `title`, `seo_url`, `blog`, `status`, `user_id`, `date_created`) VALUES
+(1, 'Blog Post #1', 'blog1', '<h2>This is a blog post</h2>\r\n<p>Lorem Ipsum Dolar Sit Amet</p>', 1, 1, '2014-02-22 23:10:26'),
+(2, 'Blog Post #2', 'blog2', '<h2>This is a blog post</h2>\r\n<p>Lorem Ipsum Dolar Sit Amet</p>', 1, 1, '2014-02-22 23:10:26');
 
 -- --------------------------------------------------------
 
@@ -44,7 +46,8 @@ INSERT INTO `blog` (`id`, `title`, `blog`, `status`, `user_id`, `date_created`) 
 -- Table structure for table `category`
 --
 
-CREATE TABLE IF NOT EXISTS `category` (
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
   `parent` int(11) NOT NULL DEFAULT '0',
@@ -68,7 +71,8 @@ INSERT INTO `category` (`id`, `name`, `parent`, `order`) VALUES
 -- Table structure for table `gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `gallery` (
+DROP TABLE IF EXISTS `gallery`;
+CREATE TABLE `gallery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(30) NOT NULL,
   `image` varchar(100) NOT NULL,
@@ -81,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `title`, `image`, `order`) VALUES
-(1, 'This is image 1', 'image1.jpg', 0),
-(2, 'This is image 2', 'image2.jpg', 1),
-(3, 'This is image 3', 'image3.jpg', 0),
+(1, 'This is image 1', 'image2.jpg', 2),
+(2, 'This is image 2', 'image7.jpg', 4),
+(3, 'This is image bla', 'testimonial1.jpg', 4),
 (4, 'This is image 4', 'image4.jpg', 3);
 
 -- --------------------------------------------------------
@@ -92,7 +96,8 @@ INSERT INTO `gallery` (`id`, `title`, `image`, `order`) VALUES
 -- Table structure for table `manufacturer`
 --
 
-CREATE TABLE IF NOT EXISTS `manufacturer` (
+DROP TABLE IF EXISTS `manufacturer`;
+CREATE TABLE `manufacturer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `phone` varchar(15) NOT NULL,
@@ -115,7 +120,8 @@ INSERT INTO `manufacturer` (`id`, `name`, `phone`, `email`, `logo`) VALUES
 -- Table structure for table `page`
 --
 
-CREATE TABLE IF NOT EXISTS `page` (
+DROP TABLE IF EXISTS `page`;
+CREATE TABLE `page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `page_title` varchar(50) NOT NULL,
   `menu_title` varchar(25) NOT NULL,
@@ -131,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `page` (
 --
 
 INSERT INTO `page` (`id`, `page_title`, `menu_title`, `show_in_menu`, `content`, `css`, `url`) VALUES
-(1, 'About Us', 'Who We Are', 1, '<p>This is the about us page</p><p>This is extracontent</p>', 'p{\r\ncolor:red;\r\n}', 'about_us'),
+(1, 'About Us', 'Who We Are', 0, '<p>This is the about us page</p>\n<p>This is extracontent</p>\n<p>This is extra extra content</p>\n<h1>Hello world!!!!</h1>', 'p{\ncolor:red;\n}', 'about_us'),
 (2, 'Terms & Conditions', 'Terms', 0, '<p>This is our terms and conditions information</p>', '', 'terms');
 
 -- --------------------------------------------------------
@@ -140,7 +146,8 @@ INSERT INTO `page` (`id`, `page_title`, `menu_title`, `show_in_menu`, `content`,
 -- Table structure for table `product`
 --
 
-CREATE TABLE IF NOT EXISTS `product` (
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(25) NOT NULL,
   `name` varchar(60) NOT NULL,
@@ -160,9 +167,9 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`id`, `sku`, `name`, `description`, `category`, `manufacturer`, `quantity`, `image`, `price`, `status`, `views`) VALUES
-(2, 'ABC123', 'Product 1', 'This is the description', 1, 2, 0, '1.jpg', 4.50, 1, 0),
-(3, 'BCD234', 'Product 2', 'This is the description', 1, 2, 5, '2.jpg', 4.50, 1, 0),
-(4, 'QWE321', 'This is my Product', 'This is the description', 2, 2, 2, '3.jpg', 59.99, 1, 0);
+(2, 'ABC123', 'Product 1', '<p>This is the description</p>', 1, 1, 4, '1.jpg', 4.50, 0, 0),
+(3, 'BCD234', 'Product 2', '<p>This is the description of the product</p>', 1, 1, 7, '1.jpg', 4.50, 1, 0),
+(4, 'QWE321', 'This is my Product', '<p>This is the description</p>', 1, 1, 2, '1.jpg', 64.99, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -170,12 +177,40 @@ INSERT INTO `product` (`id`, `sku`, `name`, `description`, `category`, `manufact
 -- Table structure for table `product_image`
 --
 
-CREATE TABLE IF NOT EXISTS `product_image` (
+DROP TABLE IF EXISTS `product_image`;
+CREATE TABLE `product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `url` varchar(100) NOT NULL,
   `order` int(11) NOT NULL DEFAULT '0',
   `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`id`, `product_id`, `url`, `order`, `description`) VALUES
+(1, 3, '5.jpg', 0, 'This is the description'),
+(2, 3, '7.jpg', 1, 'This is a description'),
+(5, 4, '', 0, ''),
+(6, 4, '', 0, ''),
+(7, 4, '', 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_special`
+--
+
+DROP TABLE IF EXISTS `product_special`;
+CREATE TABLE `product_special` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `price` decimal(6,2) NOT NULL,
+  `date_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_stop` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -185,7 +220,8 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 -- Table structure for table `setting`
 --
 
-CREATE TABLE IF NOT EXISTS `setting` (
+DROP TABLE IF EXISTS `setting`;
+CREATE TABLE `setting` (
   `setting` varchar(50) NOT NULL,
   `value` varchar(50) NOT NULL,
   PRIMARY KEY (`setting`)
@@ -205,7 +241,8 @@ INSERT INTO `setting` (`setting`, `value`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(5) NOT NULL,
   `forename` varchar(15) NOT NULL,
@@ -223,11 +260,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `title`, `forename`, `surname`, `email`, `phone`, `password`, `newsletter`, `address1`, `address2`, `town`, `postcode`, `county`, `country`, `date_created`, `admin`) VALUES
-(1, 'Mr', 'Wilson', 'McCoubrey', 'wilson@mccoubreys.co.uk', '07835441951', '29ef2918ac300330ddbe99af502d85e9dcf3c478d50f9ee06514d8164ea5e026', 1, '44 Magherahamlet Road', NULL, 'Ballynahinch', 'BT24 8PZ', 'Down', 'UK', '2014-02-22 18:31:28', 1);
+(1, 'Mr', 'Wilson', 'McCoubrey', 'wilson@mccoubreys.co.uk', '07835441951', '29ef2918ac300330ddbe99af502d85e9dcf3c478d50f9ee06514d8164ea5e026', 0, '44 Magherahamlet Road', 'Test2', 'Ballynahinch', 'BT24 8PZ', 'Down', 'UK', '2014-02-22 18:31:28', 1),
+(2, 'Mr', 'Wilson', 'McCoubrey', 'wilson@w-mccoubrey.co.uk', '442897564482', '29ef2918ac300330ddbe99af502d85e9dcf3c478d50f9ee06514d8164ea5e026', 0, '44 Magherahamlet Road', 'Belfast Road', 'ballynahinch', 'BT24 8PZ', 'DOWN', '', '2014-03-07 11:10:36', 0);

@@ -7,18 +7,16 @@
  */
 
 /**
- * Description of gallery
+ * Description of checkout
  *
  * @author Wilson McCoubrey <wilson@mccoubreys.co.uk>
  */
-class gallery extends My_Controller{
+class checkout extends My_Controller{
     function __construct() {
         parent::__construct(true);
-        $this->load->model('Model_Gallery', 'gallery');
+    }
+    function index(){
+        parent::loadPage('checkout');
     }
     
-    function index(){
-        $data['gallery'] = $this->gallery->getAll();
-        parent::loadPage('gallery', 'Gallery', $data);
-    }
 }

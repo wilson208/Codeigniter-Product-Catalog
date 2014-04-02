@@ -146,14 +146,15 @@ class account extends My_Controller{
         
     }
     
-    function editDetails(){
+    function editDetails($data = array()){
         if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->result();
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->row();
             parent::loadPage('account/edit_details', 'Edit Details',$data);
            
         }else{
             $this->login();
         }
+        
     }
     
     function processEditDetails(){
@@ -161,7 +162,7 @@ class account extends My_Controller{
         $this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|max_length[5]');
 	$this->form_validation->set_rules('forename', 'Forename', 'trim|xss_clean|max_length[15]');
 	$this->form_validation->set_rules('surname', 'Surname', 'trim|xss_clean|max_length[15]');
-	$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|max_length[50]|valid_email|is_unique[user.email]');
+	$this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|max_length[50]|valid_email');
 	$this->form_validation->set_rules('address1', 'Address 1', 'trim|xss_clean|max_length[40]');
 	$this->form_validation->set_rules('address2', 'Address 2', 'trim|xss_clean|max_length[40]');
 	$this->form_validation->set_rules('town', 'Town', 'trim|xss_clean|max_length[40]');
@@ -191,17 +192,16 @@ class account extends My_Controller{
                     $data['newsletter'] = 1;
                 }
                 
-                $this->Model_User->updateUser($this->session->userdata['id'],$data);
-                parent::loadPage('account/edit_details', 'Edit Details',$data);
-                
-                /*if(is_numeric($id) && $id > 0){                    
-                    parent::loadPage("account/editDetails-success");
+                if($this->Model_User->updateUser($this->session->userdata['id'],$data)){
+                    $data['message'] = 'Updated Successfully';
                 }else{
-                    parent::loadPage("account/editDetails-failure");
-                }*/
+                    $data['message'] = 'NOT Updated!';
+                }
+                
             }else{
-                parent::loadPage('account/edit_details', 'Edit Details',$data);
+                $data['message'] = 'NOT Updated!';
             }             
+            $this->editDetails($data);
         }      
      
      function editPassword(){

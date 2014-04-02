@@ -7,3 +7,7 @@
     max-width: 290px;
     max-height: 200px;
 }
+
+.bottom-buffer{
+    margin-bottom: 10px;
+}

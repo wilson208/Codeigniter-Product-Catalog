@@ -68,23 +68,40 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <?php foreach($categories->result() as $category){ ?>
-                    <li><a href="<?php echo base_url('product?category=' . $category->id) ;?>"><?php echo $category->name;?></a></li>
+                    <li><a href="<?php echo base_url('category/' . $category->id) ;?>"><?php echo $category->name;?></a></li>
                     <?php } ?> 
               </ul>
             </li>
             <?php } ?>
             
           </ul>
+            
           <ul class="nav navbar-nav navbar-right">
             <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){?>
+              <li class="dropdown">
+                  <a href="<?php echo base_url('checkout');?>" class="dropdown-toggle" data-toggle="dropdown">Cart <b class="caret"></b></a>
+                  <table class="table table-responsive table-striped dropdown-menu">
+                      <?php foreach($this->cart->contents() as $item){ ?>
+                      <tr>
+                          <td><?php echo $item['qty'] . 'x ' . $item['name'] . ' @ £' . number_format($item['price'], 2, '.', ''); ?> <a href="<?php echo base_url('product/deleteFromCart?rowid=' . $item['rowid']); ?>">Remove</a></td>
+                      </tr>
+                      <?php } ?>
+                      <tr>
+                          <td>Total: <?php echo "£" . number_format($this->cart->total(), 2, '.', ''); ?></td>
+                      </tr>
+                      <tr>
+                          <td><a href="<?php echo base_url('checkout');?>">Checkout</a></td>
+                      </tr>
+                  </table>
+              </li>
+              
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <?php echo $this->session->userdata['name']; ?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                       <li><a href="<?php echo base_url('account/editDetails'); ?>">Edit Details</a></li>
                       <li><a href="<?php echo base_url('account/editPassword'); ?>">Edit Password</a></li>
                       <li><a>Order History</a></li>
-                  </ul>                
-              
+                  </ul>
               </li>
               <li>
                 <a href="<?php echo base_url('account/processLogout'); ?>">Logout</a>
@@ -102,14 +119,22 @@
     
     <div class="container">
         <div class="row">
+<?php if(!$fullWidth){ ?>            
             <div class="col-md-3">
                 <div class="list-group">
                     <p>Shop By Brand</p>
                     <?php foreach($manufacturers->result() as $manufacturer){ ?>
-                    <a href="<?php echo base_url('product?manufacturer=' . $manufacturer->id) ;?>" class="list-group-item"><?php echo $manufacturer->name;?></a>
+                    <a href="<?php echo base_url('manufacturer/' . $manufacturer->id) ;?>" class="list-group-item"><?php echo $manufacturer->name;?></a>
                     <?php } ?>
                 </div>
+                <div class="alert alert-info">See Our <a>Special Offers</a></div>
+                <div class="alert alert-success"><a href="<?php echo base_url('account/register');?>">Register</a> & Join Our Newsletter</div>
+                <div class="alert alert-info"><a href="<?php echo base_url('gallery');?>">Look Around</a> Our Store</div>
             </div>
             <div class="col-md-9">
+<?php }else{ ?>
+                <div class="col-md-12">
+<?php } ?>
+
                 
            
