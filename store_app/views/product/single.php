@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Reviews</td>
-                <td><a href="<?php echo base_url('review/reviews' ); ?>">score</a></td>
+                <td><a href="<?php echo base_url('review/',$product->row()->id); ?>">score</a></td>
             </tr>
             <tr>
                 <td>Price</td>

@@ -8,9 +8,11 @@ class review extends My_Controller
         $this->load->model('Model_Review');
     }
     
-    function reviews($id)
+    
+    function index()
     {
-        $data['review'] = $this->Model_Review->getReview($id)->row();
+        $id = $this->uri->segment(2);
+        $data['review'] = $this->Model_Review->getReview(1)->row();
         parent::loadPage('product/review', 'Reviews',$data);
     }
 }
