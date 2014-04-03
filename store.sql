@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2014 at 12:14 AM
+-- Generation Time: Apr 03, 2014 at 10:52 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -193,12 +193,19 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 
 CREATE TABLE IF NOT EXISTS `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `name` varchar(15) NOT NULL,
   `date` date NOT NULL,
   `score` int(1) NOT NULL,
   `review` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id`, `name`, `date`, `score`, `review`) VALUES
+(1, 'Mark', '2014-04-09', 4, 'i gave this review a 4!');
 
 -- --------------------------------------------------------
 
