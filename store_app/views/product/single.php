@@ -29,6 +29,10 @@
                 </td>
             </tr>
             <tr>
+                <td>Reviews</td>
+                <td><a href="<?php echo base_url('review/reviews' ); ?>">score</a></td>
+            </tr>
+            <tr>
                 <td>Price</td>
                 <td><?php echo '£' . number_format((float)$product->row()->price, 2, '.', ''); ?></td>
             </tr>
@@ -60,27 +64,6 @@
     <?php } ?>
     
 </div>
-
-<div>
-    <h1>Reviews</h1>
-    
-    <?php
-    $count = 0;
-    while($count < 5)
-    {
-    ?>
-        <div>Name                                 date</div>
-        <div>
-            <textarea>
-                
-            </textarea>
-        </div>        
-    <?php
-        $count ++;
-    }
-    ?>
-</div> 
-
 
 <?php }else{ ?>
 <h2>Product Not Found</h2>

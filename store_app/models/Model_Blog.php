@@ -16,7 +16,7 @@ class Model_Blog extends CI_Model{
         parent::__construct();
     }
     
-    function addBlog($title, $blog, $user_id, $status = 0){
+    function newBlog($title, $blog, $user_id, $status = 0){
         $data = array(
             'title'     => $title ,
             'blog'      => $blog ,

@@ -21,5 +21,10 @@ class Model_Blog extends CI_Model{
     {
         $this->db->delete(`review`, array('id' => $id));
     }
+    
+    function getReview($id)
+    {
+        return $this->db->query('SELECT * FROM `review` WHERE `id` = ? LIMIT 1', array($id));
+    }
 }
 ?>
