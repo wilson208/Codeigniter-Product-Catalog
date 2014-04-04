@@ -1,6 +1,8 @@
 <div>
     <h1>Reviews for (ProductName)</h1>
-    <div><?php echo $review->name; ?></div>
-    <div><?php echo date('M j Y', strtotime('2010-05-29 01:17:35')); ?></div>
-    <div><?php echo $review->review; ?></div>
+    <div class="col-lg-5"><?php echo $review->name; ?></div>
+    <div class="right"><?php echo date('jS M Y', strtotime($review->date)); ?></div>
+    <div ><?php echo $review->score; ?></div>
+    <div class="star"
+    <div class="col-lg-7"><?php echo $review->review; ?></div>
 </div>
