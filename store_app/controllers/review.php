@@ -12,7 +12,7 @@ class review extends My_Controller
     function index()
     {
         $id = $this->uri->segment(2);
-        $data['review'] = $this->Model_Review->getReview(1)->row();
+        $data['review'] = $this->Model_Review->getReview($id);
         parent::loadPage('product/review', 'Reviews',$data);
     }
 }
