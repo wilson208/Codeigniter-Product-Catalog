@@ -1,5 +1,5 @@
 <?php if($product != null && $product->num_rows() > 0){ ?>
-
+<script type="text/javascript" src="<?php echo asset_url('raty/lib/jquery.raty.min.js'); ?>"></script>
 <div class="col-lg-6">
     <img src="<?php echo asset_url('images/products/' . $product->row()->image); ?>" class="img-responsive img-rounded img-thumbnail" />
 </div>
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Reviews</td>
-                <td><a href="<?php echo base_url('review/'.$product->row()->id); ?>">score</a></td>
+                <td><a href="<?php echo base_url('review/'.$product->row()->id); ?>"><div id="star" class=""></div></a></td>
             </tr>
             <tr>
                 <td>Price</td>
@@ -41,11 +41,16 @@
     
     <div class="row bottom-buffer">
         <div class="col-lg-6">
+            <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in']==true){ ?>
             <?php echo form_open('product/addToCart'); ?>
             <?php echo form_hidden('quantity', '1'); ?>
             <?php echo form_hidden('product_id', $product->row()->id); ?>
-            <input type="submit" class="btn btn-block btn-default btn-primary" value="Add To Cart" />
+            
+                <input type="submit" class="btn btn-block btn-default btn-primary" value="Add To Cart" />
             </form>
+            <?php }else{?>
+            <a href="<?php echo base_url('account/login'); ?>">Login to add product to Cart</a>
+            <?php } ?>
         </div>
     </div>
     
@@ -64,9 +69,19 @@
     <?php } ?>
     
 </div>
-
+<script type="text/javascript">
+    $(function()
+    {
+        $('#star').raty({ 
+            path: '<?php echo asset_url('raty/lib/img') ?>',
+            score: <?php echo $productScore; ?>,
+            readOnly: true});
+    });
+</script>
 <?php }else{ ?>
 <h2>Product Not Found</h2>
 <?php } ?>
+
+
 
 

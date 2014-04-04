@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2014 at 10:52 PM
+-- Generation Time: Apr 04, 2014 at 01:23 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -196,16 +196,19 @@ CREATE TABLE IF NOT EXISTS `review` (
   `name` varchar(15) NOT NULL,
   `date` date NOT NULL,
   `score` int(1) NOT NULL,
-  `review` varchar(200) NOT NULL,
+  `review` varchar(500) NOT NULL,
+  `productId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `review`
 --
 
-INSERT INTO `review` (`id`, `name`, `date`, `score`, `review`) VALUES
-(1, 'Mark', '2014-04-09', 4, 'i gave this review a 4!');
+INSERT INTO `review` (`id`, `name`, `date`, `score`, `review`, `productId`) VALUES
+(1, 'Mark', '2014-04-09', 4, 'i gave this review a 4!jyefgugfagfkarufbarvbfnkacgfcakebgacgf  r b ary barybr r r ra krgubr  rbakurbga uybr akbk ruaybr ajryb aukyb akub akub akurb akyvba kr fub arkyhba kyufb rehjfabrkbfar frgfd fgadr ar gr g   dfgsrdegaregfar gfare fgare gfarga rg ar gard gar ga reg ar gar gargarg argargar egargfg hyjeyt jyi o p'' k ''l; hi yhdtsr g jkl /;i.ul yktjrhvg wfcd xfg hrjtk ylu;u kyjthrgefw geht rjkyuli; luiy,kmjnrthbgv ', 2),
+(2, 'bob', '2013-11-20', 2, 'kh4brv q443r4r 5t54 tu4b tu24554 4 4 56 h456b k54b6456254kh6 b45 hj 54b 54 hjbhbj 5  bhjb b b h b5b b b b hjb 54hjb 54b hj423hj b4 bj5 hbjb jb j54 bj54 bj54 bj4b hj4 bhj423 bhj4b hj4hjb 54hjb 45h g423 jhv4 v45h 4yu5 45ut57858 rjfnksrjnrtnmrhvkjnhjdfngvmnrgjdfkmv', 4),
+(3, 'boby', '2014-01-08', 1, '8oyw4et78wrotvinsorgb78eroh5re8  58hnvor go85hg 589gh589hgq958hg859hn85b894tub895bnou5r58uyb89nr5y895rnmyub98r5tw98        \r\no9rhvnso9rh8\r\nwrivhnsoriutho8 9h985wh98w5h8t\r\n:}', 2);
 
 -- --------------------------------------------------------
 

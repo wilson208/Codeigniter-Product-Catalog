@@ -17,6 +17,7 @@ class product extends My_Controller{
         $this->load->model('Model_Product', 'product');
         $this->load->model('Model_Manufacturer', 'manufacturer');
         $this->load->model('Model_Category', 'category');
+        $this->load->model('Model_Review');
     }
     
     function index(){
@@ -32,6 +33,7 @@ class product extends My_Controller{
             $data['productImages'] = $this->product->getProductImages($productId);
             $data['productManufacturer'] = $this->manufacturer->getManufacturer($data['product']->row()->manufacturer);
             $data['productCategory'] = $this->category->getCategory($data['product']->row()->category);
+            $data['productScore'] = $this->Model_Review->getReview($productId)->row()->score;
             
             $title = '';
             if($data['product']->num_rows() > 0){

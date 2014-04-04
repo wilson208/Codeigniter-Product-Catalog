@@ -24,7 +24,7 @@ class Model_Review extends CI_Model{
     
     function getReview($id)
     {
-        return $this->db->query('SELECT * FROM `review` WHERE `id` = ? LIMIT 1', array($id));
+        return $this->db->query('SELECT * FROM `review` WHERE `productId` = ? ', array($id));
     }
 }
 ?>
