@@ -1,5 +1,18 @@
 <div class="row">
     <h1>Checkout</h1>
+<?php if(sizeof($this->cart->contents()) > 0){ ?>
+    <div class="row">
+        <h3>Customer Details</h3>
+        
+        <div class="col-lg-6">
+            
+        </div>
+        
+        <div class="col-lg-6">
+            
+        </div>
+        
+    </div>
     <table class="table table-responsive table-striped">
         <thead>
             <tr>
@@ -26,4 +39,7 @@
             </tr>
         </tfoot>
     </table>
+<?php } else { ?>
+    <h2>Sorry, Your Cart Is Empty!</h2>
+<?php } ?>
 </div>

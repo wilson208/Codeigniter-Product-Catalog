@@ -19,6 +19,9 @@ class page extends My_Controller{
     
     public function index() {
         $url = $this->uri->segment(2);
+        if(!$url){
+            $url = $this->uri->segment(1);
+        }
         if($url == FALSE){
             redirect('home', 'refresh');
         }else{

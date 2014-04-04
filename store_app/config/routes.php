@@ -41,11 +41,13 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
-$route['page/:any'] = "page";
 $route['category/:num'] = "product/category";
 $route['product/:num'] = "product";
 $route['manufacturer/:num'] = "product/manufacturer";
 $route['blog/:any'] = "blog/single";
 
+//This is after the rest of the routes, as page has lower presedence than everything else
+$route['page/:any'] = "page";
+$rout[':any'] = "page";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
