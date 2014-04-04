@@ -29,6 +29,10 @@
                 </td>
             </tr>
             <tr>
+                <td>Reviews</td>
+                <td><a href="<?php echo base_url('review/'.$product->row()->id); ?>">score</a></td>
+            </tr>
+            <tr>
                 <td>Price</td>
                 <td><?php echo '£' . number_format((float)$product->row()->price, 2, '.', ''); ?></td>
             </tr>
@@ -60,9 +64,6 @@
     <?php } ?>
     
 </div>
-
-
-
 
 <?php }else{ ?>
 <h2>Product Not Found</h2>
