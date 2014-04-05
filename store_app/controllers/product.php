@@ -35,7 +35,7 @@ class product extends My_Controller{
             $data['productImages'] = $this->product->getProductImages($productId);
             $data['productManufacturer'] = $this->manufacturer->getManufacturer($data['product']->row()->manufacturer);
             $data['productCategory'] = $this->category->getCategory($data['product']->row()->category);
-            $data['productScore'] = $this->Model_Review->getReview($productId)->row()->score;
+            $data['productScore'] = $this->Model_Review->getScore($productId)->row()->score;
             
             $title = '';
             if($data['product']->num_rows() > 0){

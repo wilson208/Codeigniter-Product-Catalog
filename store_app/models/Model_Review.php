@@ -5,13 +5,13 @@ class Model_Review extends CI_Model{
         parent::__construct();
     }
     
-    function addReview($review,$user_id,$date,$score)
+    function addReview($name,$review,$productId,$score)
     {
         $data = array
             (
+            'name' => $name,
             'review'    => $review ,
-            'user_id'   => $user_id,
-            'date'      => $date,
+            'productId'   => $productId,
             'score'     => $score
             );
         $this->db->insert('review', $data);
@@ -26,5 +26,10 @@ class Model_Review extends CI_Model{
     {
         return $this->db->query('SELECT * FROM `review` WHERE `productId` = ? ', array($id));
     }
+    
+    function getScore($id)
+    {
+        return $this->db->query('SELECT AVG(`score`) AS score FROM `review` WHERE `productId` = ? ', array($id));
+    }  
 }
 ?>
