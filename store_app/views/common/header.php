@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php if(isset($title)){echo $title;}else{echo getOption('title', 'Online Store');} ?></title>
+    <title><?php if(isset($title)){echo $title;}else{echo 'Online Store';} ?></title>
 
     <!-- Bootstrap -->
     <link href="<?php echo asset_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="<?php echo base_url(); ?>">Online Store</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -50,6 +50,14 @@
             <li <?php if($this->uri->segment(1) == 'home' || $this->uri->segment(1) == ''){ echo 'class="active"';} ?>>
                 <a href="<?php echo base_url('home'); ?>">Home</a>
             </li>
+            
+            <?php foreach($pages->result() as $page){ ?>
+            <li>
+                <li>
+                    <a href="<?php echo base_url('page/' . $page->url); ?>"><?php echo $page->menu_title; ?></a>
+                </li>
+            </li>
+            <?php } ?>
             
             <li <?php if($this->uri->segment(1) == 'blog'){ echo 'class="active"';} ?>>
                 <a href="<?php echo base_url('blog'); ?>">Blog</a>
@@ -127,8 +135,13 @@
                     <a href="<?php echo base_url('manufacturer/' . $manufacturer->id) ;?>" class="list-group-item"><?php echo $manufacturer->name;?></a>
                     <?php } ?>
                 </div>
-                <div class="alert alert-info">See Our <a>Special Offers</a></div>
-                <div class="alert alert-success"><a href="<?php echo base_url('account/register');?>">Register</a> & Join Our Newsletter</div>
+                <div class="alert alert-info">Want To <a href="<?php echo base_url('contact');?>">Contact Us?</a></div>
+                <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){ ?>
+                <div class="alert alert-success">Read Our <a href="<?php echo base_url('blog');?>">Blog</a></div>
+                <?php }else{ ?>
+                <div class="alert alert-success"><a href="<?php echo base_url('register');?>">Register</a> & Join Our Newsletter</div>
+                <?php } ?>
+                
                 <div class="alert alert-info"><a href="<?php echo base_url('gallery');?>">Look Around</a> Our Store</div>
             </div>
             <div class="col-md-9">

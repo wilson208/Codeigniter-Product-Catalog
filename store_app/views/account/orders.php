@@ -13,7 +13,7 @@
         <tr>
             <td><?php echo $order->id; ?></td>
             <td><?php echo $order->status; ?></td>
-            <td><?php echo $order->date_created; ?></td>
+            <td><?php echo date('l jS F Y H:i', strtotime($order->date_created));?></td>
             <td><a href="<?php echo base_url('account/orders/' . $order->id); ?>">View Order</a></td>
         </tr>
         <?php } ?> 

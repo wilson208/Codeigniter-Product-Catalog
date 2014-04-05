@@ -24,14 +24,17 @@ class upload extends My_Controller{
             $redirect = admin_url();
         }
             
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = '*';
         $config['max_size']	= '1024';
         $config['max_width']  = '1000';
         $config['max_height']  = '1000';
         $config['upload_path'] = 'store_assets/images/'. $this->input->post('path') . '/';
             
         $this->load->library('upload', $config);
-        $this->upload->do_upload('imagefile');
-        redirect($redirect, 'refresh');        
+        if ( ! $this->upload->do_upload('imagefile')){
+            echo $this->upload->display_errors();
+        }else{
+            redirect($redirect, 'refresh');
+        }        
     }
 }

@@ -10,13 +10,12 @@
                         
                         <div class="col-lg-4">
                             
-                            <a href="<?php echo base_url('page/About Us'); ?>">About Us</a>
-                            <a href="<?php echo base_url('page/privacy'); ?>">Privacy Policy</a>
-                            <a href="<?php echo base_url('page/terms'); ?>">Terms & Conditions</a>
+                            <a href="<?php echo base_url('page/about_us'); ?>">About Us</a><br/>
+                            <a href="<?php echo base_url('page/privacy'); ?>">Privacy Policy</a><br/>
+                            <a href="<?php echo base_url('page/terms'); ?>">Terms & Conditions</a><br/>
                         </div>
                         
                         <div class="col-lg-4">
-                            <p>Column 2</p>
                         </div>
                         
                         <?php if(isset($this->session->userdata['admin']) && $this->session->userdata['admin'] == 1){ ?>

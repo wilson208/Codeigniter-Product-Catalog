@@ -42,6 +42,7 @@ class Model_Product extends CI_Model{
         }
         
         $this->db->insert('product', $data);
+        return $this->db->insert_id();
     }
     
     /**

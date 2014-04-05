@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Store Administration</title>
+    <title>Online Store Administration</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo asset_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
@@ -20,7 +20,7 @@
   </head>
   <body>
     
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,13 +29,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Administration</a>
+            <a class="navbar-brand" href="<?php echo admin_url(); ?>">Online Store Administration</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             
-            <li <?php if($this->uri->segment(2) == 'home' || $this->uri->segment(1) == ''){ echo 'class="active"';} ?>>
-                <a href="<?php echo base_url('home'); ?>">Home</a>
+            <li <?php if($this->uri->segment(2) == 'orders'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('orders'); ?>">Orders</a>
+            </li>
+            
+            <li class="dropdown">
+                <a href="<?php echo admin_url('product'); ?>" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo admin_url('product'); ?>">All Products</a></li>
+                    <li><a href="<?php echo admin_url('category'); ?>">Categories</a></li>
+                    <li><a href="<?php echo admin_url('manufacturers'); ?>">Manufacturers</a></li>
+                </ul>
             </li>
             
             <li <?php if($this->uri->segment(2) == 'blog'){ echo 'class="active"';} ?>>
@@ -46,20 +55,12 @@
                 <a href="<?php echo admin_url('gallery'); ?>">Gallery</a>
             </li>
             
-            <li <?php if($this->uri->segment(2) == 'products'){ echo 'class="active"';} ?>>
-                <a href="<?php echo admin_url('product'); ?>">Products</a>
-            </li>
-            
             <li <?php if($this->uri->segment(2) == 'pages'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('pages'); ?>">Pages</a>
             </li>
             
             <li <?php if($this->uri->segment(2) == 'users'){ echo 'class="active"';} ?>>
                 <a href="<?php echo admin_url('user'); ?>">Users</a>
-            </li>
-            
-            <li <?php if($this->uri->segment(2) == 'orders'){ echo 'class="active"';} ?>>
-                <a href="<?php echo admin_url('orders'); ?>">Orders</a>
             </li>
             
           </ul>

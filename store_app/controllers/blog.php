@@ -22,11 +22,7 @@ class blog extends My_Controller{
     }
     
     function all(){
-        if($this->input->get('search') != false){
-            $data['blogs'] = $this->Model_Blog->getBlogs($this->input->get('search'));
-        }else{
-            $data['blogs'] = $this->Model_Blog->getBlogs();
-        }
+        $data['blogs'] = $this->Model_Blog->getBlogs(true, 20);
         parent::loadPage('blog/list', 'Blog', $data);
     }
     

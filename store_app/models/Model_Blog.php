@@ -41,7 +41,7 @@ class Model_Blog extends CI_Model{
     }
     
     function deleteBlog($id){
-        $this->db->delete(`blog`, array('id' => $id));
+        $this->db->delete('blog', array('id' => $id));
     }
     
     function getBlog($id){
@@ -63,15 +63,13 @@ class Model_Blog extends CI_Model{
         }
     }
     
-    function getBlogs($searchQuery = '', $status = false){
-        if($status == false){
-            $status = 0;
-        }else{
-            $status = 1;
+    function getBlogs($getEnabled = true, $limit = 20){
+        
+        if($getEnabled){
+            $this->db->where(array('status' => 1));
         }
         
-        $result =  $this->db->query('SELECT * FROM `blog` WHERE `status` = ? AND LOWER(`title`) LIKE LOWER(?) OR LOWER(`blog`) LIKE LOWER(?)', array($status, "%$searchQuery%", "%$searchQuery%"));
-        return $result;
+        return $this->db->get('blog', $limit, 0);
     }
     
 }

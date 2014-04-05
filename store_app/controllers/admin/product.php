@@ -44,6 +44,22 @@ class product extends My_Controller{
         }
     }
     
+    function add(){
+        $data = array(
+                'sku'           => '',
+                'name'          => '',
+                'description'   => '',
+                'category'      => '',
+                'manufacturer'  => '',
+                'quantity'      => 0,
+                'image'         => '',
+                'price'         => '',
+                'status'        => 0
+            );
+        $id = $this->product->insertProduct($data);
+        redirect(admin_url('product/single?id=' . $id), 'refresh');
+    }
+    
     function delete(){
         if($this->input->get('id') != FALSE){
             $id = $this->input->get('id');

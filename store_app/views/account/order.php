@@ -3,15 +3,20 @@
 <table class="table table-responsive table-bordered">
     <tr>
         <td>Order Made:</td>
-        <td><?php echo $order->date_created;?></td>
+        <td><?php echo date('l jS F Y H:i', strtotime($order->date_created));?></td>
     </tr>
     <tr>
         <td>Status:</td>
-        <td><?php echo $order->status;?></td>
+        <td>
+            <?php echo $order->status;?>
+            <?php if($order->status == 'pending'){ ?>
+            <a href="<?php echo base_url('checkout/makePayment?id=' . $order->id); ?>">Make Payment</a>
+            <?php } ?>
+        </td>
     </tr>
     <tr>
         <td>Order Status Updated: </td>
-        <td><?php echo $order->date_modified;?></td>
+        <td><?php echo date('l jS F Y H:i', strtotime($order->date_modified));?></td>
     </tr>
 </table>
 

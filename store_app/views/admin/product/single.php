@@ -18,7 +18,9 @@
 <?php echo form_open(admin_url('product/updateInfo')); ?>
     <div class="row">
         <h1>Product Information</h1>
-        <p><?php echo validation_errors(); ?></p>
+        <?php if(strlen(validation_errors()) > 0){ ?>
+        <div class="alert alert-danger"><?php echo validation_errors(); ?></div>
+        <?php } ?>
         <p><?php if(isset($message)){echo $message;}?></p>
             <div class="col-lg-6">
                 <input type="hidden" class="form-control" id="product_id" name="product_id" value="<?php echo $product->id ;?>" />
@@ -71,9 +73,10 @@
 
                 <div class="form-group">
                     <label for="product_image">Main Image:</label>
+                    <p>Use Upload Form In Next Section To Upload Additional Images.</p>
                     <select name="product_image" id="product_image" class="form-control">
                         <?php foreach($images as $image){ ?>
-                        <option value="<?php echo $image; ?>" <?php echo set_select('product_image', $image); ?>>
+                        <option value="<?php echo $image; ?>" <?php if($image == $product->image){ echo 'selected'; } ?>>
                             <?php echo $image; ?>
                         </option>
                         <?php } ?>

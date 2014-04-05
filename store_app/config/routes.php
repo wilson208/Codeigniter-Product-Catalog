@@ -50,6 +50,7 @@ $route['register'] = "account/register";
 $route['login'] = "account/login";
 $route['account/orders/:num'] = "account/order";
 $route['orders/:num'] = "account/order";
+$route['admin'] = "admin/orders";
 
 //This is after the rest of the routes, as page has lower presedence than everything else
 $route['page/:any'] = "page";

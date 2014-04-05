@@ -20,9 +20,11 @@ class My_Controller extends CI_Controller{
     function loadPage($view, $title = 'Online Store', $data = array()){
         $this->load->model('Model_Category', 'category');
         $this->load->model('Model_Manufacturer', 'manufacturer');
+        $this->load->model('Model_Page', 'page');
         
-        $headData['categories']     = $this->category->getTopLevel();
+        $headData['categories']     = $this->category->getCategories();
         $headData['manufacturers']  = $this->manufacturer->getManufacturers();
+        $headData['pages']          = $this->page->getMenuPages();
         $headData['title']          = $title;
         $headData['fullWidth']      = $this->fullWidth;
         

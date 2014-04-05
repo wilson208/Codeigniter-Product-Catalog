@@ -15,6 +15,7 @@ class blog extends My_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model('Model_Blog', 'blog');
+        $this->load->model('Model_User', 'user');
     }
     
     function index($data = array()){
@@ -22,7 +23,7 @@ class blog extends My_Controller{
     }
     
     function all($data = array()){
-        $data['blog'] = $this->blog->getBlogs();
+        $data['blog'] = $this->blog->getBlogs(false);
         parent::loadAdmin('blog/all', $data);
     }
     
@@ -33,6 +34,7 @@ class blog extends My_Controller{
         
         if(is_numeric($id)){
             $data['blog'] = $this->blog->getBlog($id);
+            $data['user'] = $this->user->getUser($data['blog']->user_id)->row();
             parent::loadAdmin('blog/single', $data); 
         }else{
             redirect(admin_url('blog'));
@@ -40,7 +42,7 @@ class blog extends My_Controller{
     }
     
     function add(){
-        $id = $this->blog->newBlog('title', 'blog', '', 0);
+        $id = $this->blog->newBlog('', '', $this->session->userdata['id'], 0);
         redirect(admin_url('blog/single?id=' . $id), 'refresh');
     }
     

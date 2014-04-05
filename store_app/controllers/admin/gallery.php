@@ -25,7 +25,6 @@ class gallery extends My_Controller{
         $data['gallery'] = $this -> galleryItems;
         
         //Get Files In Gallery Directory
-        $dir = asset_url('images/gallery');
         $data['files'] = scandir('store_assets/images/gallery/');
         
         parent::loadAdmin('gallery', $data);

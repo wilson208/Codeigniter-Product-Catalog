@@ -1,15 +1,14 @@
 <div class="col-md-12">
     <h1>Blogs</h1>
-    <table class="table table-responsive table-responsive">
+    <a href="<?php echo admin_url('blog/add'); ?>">New Blog</a>
+    <table class="table table-responsive table-bordered">
         <thead>
             <tr>
                 <td>ID</td>
                 <td>Title</td>
-                <td>Blog</td>
-                <td>User ID</td>
                 <td>Status</td>
-                
-                <td><a href="<?php echo admin_url('blog/add'); ?>">New Blog</a></td>
+                <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -17,9 +16,7 @@
             <tr>
                 <td><?php echo $blog->id; ?></td>
                 <td><?php echo $blog->title; ?></td>
-                <td><?php echo $blog->blog; ?></td>
-                <td><?php echo $blog->user_id; ?></td>
-                <td><?php echo $blog->status; ?></td>
+                <td><?php if($blog->status == 1){ echo 'Enabled'; }else{ echo 'Disabled';} ?></td>
                 <td><a href="<?php echo admin_url('blog/single?id=' . $blog->id); ?>">Edit</a></td>
                 <td><a href="<?php echo admin_url('blog/delete?id=' . $blog->id); ?>">Delete</a></td>
             </tr>
