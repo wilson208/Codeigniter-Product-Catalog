@@ -46,6 +46,10 @@ $route['product/:num'] = "product";
 $route['manufacturer/:num'] = "product/manufacturer";
 $route['blog/:any'] = "blog/single";
 $route['review/:num'] = "review";
+$route['register'] = "account/register";
+$route['login'] = "account/login";
+$route['account/orders/:num'] = "account/order";
+$route['orders/:num'] = "account/order";
 
 //This is after the rest of the routes, as page has lower presedence than everything else
 $route['page/:any'] = "page";

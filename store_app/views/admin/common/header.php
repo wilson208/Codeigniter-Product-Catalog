@@ -58,8 +58,8 @@
                 <a href="<?php echo admin_url('user'); ?>">Users</a>
             </li>
             
-            <li <?php if($this->uri->segment(2) == 'users'){ echo 'class="active"';} ?>>
-                <a href="<?php echo admin_url('user'); ?>">Users</a>
+            <li <?php if($this->uri->segment(2) == 'orders'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('orders'); ?>">Orders</a>
             </li>
             
           </ul>

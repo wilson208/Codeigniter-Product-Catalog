@@ -1,3 +1,6 @@
+<?php if(isset($message)){ ?>
+<div class="alert alert-danger"><?php echo $message; ?></div>
+<?php } ?>
 <?php if($product != null && $product->num_rows() > 0){ ?>
 <script type="text/javascript" src="<?php echo asset_url('raty/lib/jquery.raty.min.js'); ?>"></script>
 <div class="col-lg-6">
