@@ -73,6 +73,21 @@ class Model_User extends CI_Model{
         return $this->db->insert_id();
     }
     
+    function setRandomPassword($email){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomPassword = '';
+        for ($i = 0; $i < 8; $i++) {
+            $randomPassword .= $characters[rand(0, strlen($characters))];
+        }
+        
+        $this->db->update('user', array('password' => passwordHash($randomPassword)), array('email' => $email));
+        if($this->db->affected_rows() > 0){
+            return $randomPassword;
+        }else{
+            return null;
+        }
+    }
+    
     function changeUser($id, $title, $forename, $surname, $email, $address1, $address2, $town, $postcode, $county, $country, $phone){
         $data = array(
             'id'    => $id,

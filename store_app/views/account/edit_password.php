@@ -2,7 +2,14 @@
 
 <div class="row">
     <h2> Edit Password </h2>
-    <div style="color:red;"><?php echo validation_errors(); ?></div>
+    <?php if(isset($error)){ ?>
+    <div class="alert alert-danger"><?php echo $error; ?></div>
+    <?php } ?>
+        
+    <?php if(isset($message)){ ?>
+    <div class="alert alert-success"><?php echo $message; ?></div>
+    <?php } ?>
+    
     <?php echo form_open('account/processEditPassword', array('role' => 'form')); ?>
     <div class="col-lg-4 border-right">
         

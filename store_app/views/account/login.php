@@ -2,6 +2,15 @@
 <div class="row">
     <div class="col-lg-4 border-right">
         <h2>Login</h2>
+        
+        <?php if(isset($error)){ ?>
+        <div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php } ?>
+        
+        <?php if(isset($message)){ ?>
+        <div class="alert alert-success"><?php echo $message; ?></div>
+        <?php } ?>
+        
         <?php echo form_open('account/processLogin', array('role' => 'form')); ?>
         
             <div class="form-group">
@@ -22,5 +31,8 @@
     <div class="col-lg-5">
         <h2>Not Registered?</h2>
         <a href="<?php echo base_url('register'); ?>"><h3>Click Here</h3></a>
+        
+        <h2>Forgot Password?</h2>
+        <a href="<?php echo base_url('account/forgotpassword'); ?>"><h3>Click Here</h3></a>
     </div>
 </div>

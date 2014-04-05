@@ -1,4 +1,4 @@
 <?php
 function passwordHash($password){
-    return hash("sha256", $data['password']);
+    return hash("sha256", $password);
 }

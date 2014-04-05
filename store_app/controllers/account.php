@@ -30,8 +30,31 @@ class account extends My_Controller{
         }
     }
     
-    function login(){
-        parent::loadPage('account/login', 'Login');  
+    function editDetails($data = array()){
+        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
+            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->row();
+            parent::loadPage('account/edit_details', 'Edit Details',$data);
+           
+        }else{
+            $this->login();
+        }
+        
+    }     
+    
+    function editPassword($data = array()){
+        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
+            parent::loadPage('account/edit_password', 'Edit Password', $data);
+        }else{
+            $this->login();
+        }
+    }
+    
+    function login($data = array()){
+        parent::loadPage('account/login', 'Login', $data);  
+    }
+    
+    function forgotPassword($data = array()){
+        parent::loadPage('account/forgotpassword', "Password Reset", $data);
     }
     
     function orders(){
@@ -76,9 +99,8 @@ class account extends My_Controller{
         if ($this->form_validation->run() != FALSE){//If form meets the rules set out above.   
             $email = $this->input->post('email');
             $password = $this->input->post('password');
-            $encryptedPassword = hash("sha256", $password);
             
-            $user_id = $this->Model_User->verifyLogin($email, $encryptedPassword); //Returns user_id if valid login. Else, returns false.
+            $user_id = $this->Model_User->verifyLogin($email, passwordHash($password)); //Returns user_id if valid login. Else, returns false.
             if($user_id != false){
                 $userdetails = $this->Model_User->getUser($user_id)->row();
                 $data['id'] = $userdetails->id;
@@ -93,7 +115,7 @@ class account extends My_Controller{
         //Only reached if the login failed.
         //Go back to login page, displaying the generic error message
         $data['error'] = 'Invalid Email/Password Combination.';
-        parent::loadPage('account/login', 'Login', $data); 
+        $this->login($data);
     }
     
     function processLogout(){
@@ -164,17 +186,6 @@ class account extends My_Controller{
         
     }
     
-    function editDetails($data = array()){
-        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-            $data['user']= $this->Model_User->getUser($this->session->userdata['id'])->row();
-            parent::loadPage('account/edit_details', 'Edit Details',$data);
-           
-        }else{
-            $this->login();
-        }
-        
-    }
-    
     function processEditDetails(){
         
         $this->form_validation->set_rules('title', 'Title', 'trim|xss_clean|max_length[5]');
@@ -222,50 +233,57 @@ class account extends My_Controller{
             $this->editDetails($data);
         }      
      
-     function editPassword(){
-        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-           
-            parent::loadPage('account/edit_password', 'Edit Password');
-           
-        }else{
-            $this->login();
-        }
-    }
-    
-    function processEditPassword()
-    {
-        $this->form_validation->set_rules('passwordOld', 'Password Old', 'required|xss_clean');
-	$this->form_validation->set_rules('passwordNew', 'Password New', 'required|min_length[8]|matches[passwordConfirm]');
-        $this->form_validation->set_rules('passwordConfrm', 'Password Confirm', 'required');
-        
-        if ($this->form_validation->run() != FALSE)//If form meets the rules set out above. 
-        {  
+    function processEditPassword(){
+        var_dump($this->input->post());
+        $this->form_validation->set_rules('oldPassword', 'Password Old', 'required|xss_clean');
+	$this->form_validation->set_rules('newPassword', 'Password New', 'required|min_length[8]');
+        $this->form_validation->set_rules('confirmPassword', 'Password Confirm', 'required|matches[newPassword]');
+        $data = array();
+        if ($this->form_validation->run() != FALSE){//If form meets the rules set out above. 
             $email = $this->session->userdata['email'];
-            $password = $this->input->post('passwordOld');
-            $encryptedPassword = hash("sha256", $password);
+            $password = $this->input->post('oldPassword');
+            echo $email . '  ' . $password;
+            $user_id = $this->Model_User->verifyLogin($email, passwordHash($password)); //Returns user_id if valid login. Else, returns false.
             
-            $user_id = $this->Model_User->verifyLogin($email, $encryptedPassword); //Returns user_id if valid login. Else, returns false.
-            if($user_id != false)
-            {    
-                $data = $this->input->post('passwordNew');
-                $this->Model_User->updateUser($user_id,$data);     
-                parent::loadPage('account/editPass-success', 'Error!');
-            }
-            else
-            {
-                parent::loadPage('account/editPass-failure', 'Error!');
+            if($user_id != false){    
+                $data = array('password' => passwordHash($this->input->post('newPassword')));
+                if($this->Model_User->updateUser($user_id, $data)){
+                    $data['message'] = 'Password Updated Successfully!';
+                }else{
+                    $data['error'] = 'Unknown Error Updating.';
+                } 
+            }else{
+                $data['error'] = 'Old Password Incorrect!';
             }
         }
         else
         {
-            parent::loadPage('account/editPass-failure', 'Error!');
+            $data['error'] = validation_errors();
         }
+        
+        $this->editPassword($data);
+        
     }
     
-    //Success Pages
-    
-    function processPayment(){
+    function processForgotPassword(){
+        $email = $this->input->post('emailAddress');
+        $data = array();
         
+        if($email){
+            $this->load->model('model_email');
+            $newPassword = $this->Model_User->setRandomPassword($email);
+            
+            if($newPassword!= null){
+                $message = "Your password has been reset for our online store. Please login and set your password to a password of your choice asap. Your new random password is: $newPassword";
+                $this->model_email->sendEmail($email, 'Password Reset', $message);
+            }
+            
+            $data['message'] = 'Email Has Been Sent To Specified Email, if it is a valid email of an account.';
+        }else{
+            $data['error'] = 'You must enter a valid email address in the field.';
+        }
+        
+        $this->forgotPassword($data);
     }
     
     function logoutSuccess(){
