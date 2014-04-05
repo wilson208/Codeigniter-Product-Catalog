@@ -53,7 +53,7 @@
                     <label for="product_manufacturer">Manufacturer:</label>
                     <select name="product_manufacturer" id="product_manufacturer" class="form-control">
                         <?php foreach($manufacturers->result() as $manufacturer){ ?>
-                        <option value="<?php echo $manufacturer->id; ?>" <?php echo set_select('product_manufacturer', $manufacturer->id); ?>>
+                        <option value="<?php echo $manufacturer->id; ?>" <?php if($manufacturer->id == $product->manufacturer){ echo 'selected';}?>>
                             <?php echo $manufacturer->name; ?>
                         </option>
                         <?php } ?>
@@ -64,7 +64,7 @@
                     <label for="product_category">Category:</label>
                     <select name="product_category" id="product_category" class="form-control">
                         <?php foreach($categories->result() as $category){ ?>
-                        <option value="<?php echo $category->id; ?>" <?php echo set_select('product_category', '$category->id'); ?>>
+                        <option value="<?php echo $category->id; ?>" <?php if($category->id == $product->category){ echo 'selected'; } ?>>
                             <?php echo $category->name; ?>
                         </option>
                         <?php } ?>
