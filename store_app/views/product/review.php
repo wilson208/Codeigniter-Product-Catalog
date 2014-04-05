@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo asset_url('raty/lib/jquery.raty.min.js'); ?>"></script>
 
-<h1>Reviews for <?php echo $product->name ?></h1>
+<h1>Reviews for <?php echo $product->name; ?></h1>
 <?php foreach($review as $row){?>
 <div class="row  col-lg-10">
     <table class="table table-responsive table-striped table-condensed ">
@@ -22,3 +22,26 @@
     });
 </script>
 <?php } ?>
+<?php echo form_open('review/processReview', array('role' => 'form')); ?>
+<?php echo form_hidden('productId',$product->id); ?>
+<div >
+    <div class="row col-lg-8 ">
+        <label>Add your own review!</label>
+    </div>
+    <div class="form-group">
+        <textarea name="review" type="text" class="form-control" id="review" placeholder="Type your review here!" rows="5"></textarea>
+    </div>
+    <div class="form-group pagination">
+        <select name="score" class="form-control ">
+            <option name="score" value="1" selected>1</option>
+            <option name="score" value="2">2</option>
+            <option name="score" value="3">3</option>
+            <option name="score" value="4">4</option>
+            <option name="score" value="5">5</option>
+        </select>
+    </div>
+    <div class="pagination">
+        <button name="submit" value="Submit" type="submit" class="btn btn-default btn-primary">Submit Review</button>
+    </div>
+</div>
+</form>
