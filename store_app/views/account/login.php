@@ -20,45 +20,7 @@
     </div>
     
     <div class="col-lg-5">
-        <h2>Register</h2>
-        <?php echo form_open('account/register', array('role' => 'form')); ?>
-            
-            <div class="form-group">
-                <label for="title">Title</label>
-                <select class="form-control">
-                    <option name="title" value="Mr">Mr.</option>
-                    <option name="title" value="Mrs">Mrs.</option>
-                    <option name="title" value="Miss">Miss.</option>
-                    <option name="title" value="Ms">Ms.</option>
-                    <option name="title" value="Dr">Dr.</option>
-                </select>
-            </div>
-        
-            <div class="form-group">
-                <label for="forename">Forename</label>
-                <input required="yes" name="forename" type="text" class="form-control" id="forename" placeholder="Forename">
-            </div>
-        
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input required="yes" name="surname" type="text" class="form-control" id="surname" placeholder="Surname">
-            </div>
-        
-            <div id="emailGroup" class="form-group">
-                <label for="email">Email</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="<?php if(isset($email)){echo $email;} ?>" onchange="validateEmail()" onpropertychange="validateEmail()" onkeyup="validateEmail()">
-                <span id="emailSpan" class=""></span>
-                <label id="emailError"></label>
-            </div>
-
-            <div id="passwordGroup" class="form-group">
-                <label for="password">Password</label>
-                <input name="password" id='password' type="password" class="form-control" id="password" placeholder="Password" onkeyup="validatePassword()" onchange="validatePassword()" value="<?php if(isset($password)){echo $password;} ?>">
-                <span id="passwordSpan" class=""></span>
-            </div>
-
-            <button type="submit" name="submit" value="Register" class="btn btn-default">Next</button>
-
-        </form>
+        <h2>Not Registered?</h2>
+        <a href="<?php echo base_url('register'); ?>"><h3>Click Here</h3></a>
     </div>
 </div>

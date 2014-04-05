@@ -34,11 +34,29 @@ class account extends My_Controller{
         parent::loadPage('account/login', 'Login');  
     }
     
-    function myAccount(){
-        if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){
-            parent::loadPage('account/myaccount', 'My Account');
+    function orders(){
+        $this->load->model('model_order');
+        $data['orders'] = $this->model_order->getOrders($this->session->userdata['id']);
+        parent::loadPage('account/orders', 'Order History', $data);
+    }
+    
+    function order(){
+        $id = $this->uri->segment(3);
+        if(!$id){
+            $id = $this->uri->segment(2);
+        }
+         
+        $this->load->model('model_order');
+
+        $data['order'] = $this->model_order->getOrder($id);
+
+        if($data['order']->num_rows == 1){
+            $data['order'] = $data['order']->row();
+            $data['products'] = $this->model_order->getOrderProducts($id);
+            $data['total'] = $this->model_order->getOrderTotal($id);
+            parent::loadPage('account/order', 'Order: ' . $data['order']->id, $data);
         }else{
-            $this->login();
+            $this->orders();
         }
     }
     
@@ -243,8 +261,12 @@ class account extends My_Controller{
             parent::loadPage('account/editPass-failure', 'Error!');
         }
     }
-     
+    
     //Success Pages
+    
+    function processPayment(){
+        
+    }
     
     function logoutSuccess(){
         parent::loadPage('account/logout_success', 'Logout Successful'); 

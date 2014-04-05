@@ -100,7 +100,7 @@
                   <ul class="dropdown-menu">
                       <li><a href="<?php echo base_url('account/editDetails'); ?>">Edit Details</a></li>
                       <li><a href="<?php echo base_url('account/editPassword'); ?>">Edit Password</a></li>
-                      <li><a>Order History</a></li>
+                      <li><a href="<?php echo base_url('account/orders');?>">Order History</a></li>
                   </ul>
               </li>
               <li>

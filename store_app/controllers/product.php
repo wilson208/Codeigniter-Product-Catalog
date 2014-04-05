@@ -24,10 +24,12 @@ class product extends My_Controller{
         $this->single();
     }
     
-    function single(){
-        if($this->uri->segment(2) > 0){
+    function single($productId = null, $data = array()){
+        if($this->uri->segment(2) > 0 || $productId != null){
             
-            $productId = $this->uri->segment(2);
+            if($productId == null){
+                $productId = $this->uri->segment(2);
+            }
             
             $data['product'] = $this->product->getProduct($productId);
             $data['productImages'] = $this->product->getProductImages($productId);
@@ -96,6 +98,11 @@ class product extends My_Controller{
         $product_id = $this->input->post('product_id');
         $quantity = $this->input->post('quantity');
         
+        $quantityInStock = $this->product->getProduct($product_id)->row()->quantity;
+        
+        
+        
+        
         $itemInCart = null;
         $cartItems = $this->cart->contents();
         foreach($cartItems as $item){
@@ -104,32 +111,43 @@ class product extends My_Controller{
             }
         }
         
-        if($product_id != false && $quantity != false){
-            if($itemInCart != null){
-                $newQuantity = $itemInCart['qty'] + $quantity;
-                $data = array(
-                    'rowid' => $itemInCart['rowid'],
-                    'qty' => $newQuantity
-                );
-                $this->cart->update($data);
-            }else{
-                $product = $this->product->getProduct($product_id);
-                $product_special = $this->product->getProductSpecials($product_id);
-
-                $data = array(
-                   'id'      => $product->row()->id,
-                   'qty'     => $quantity,
-                   'price'   => $product->row()->price,
-                   'name'    => $product->row()->name
-                );
-
-                if($product_special != null && $product_special->num_rows() > 0){
-                    $data['price'] = $product_special->row()->price;
-                }
-                $this->cart->insert($data);
-            }
+        
+        $totalQuantityWanted = $quantity;
+        if($itemInCart != null){
+            $totalQuantityWanted = $totalQuantityWanted + $itemInCart['qty'];
         }
-        redirect(base_url('product/' . $product_id), 'refresh');
+        if($totalQuantityWanted > $quantityInStock){
+            $this->single($product_id, array('message' => 'Not Enough In Stock To Add To Cart'));
+        }else{
+            if($product_id != false && $quantity != false){
+                if($itemInCart != null){
+                    $newQuantity = $itemInCart['qty'] + $quantity;
+                    $data = array(
+                        'rowid' => $itemInCart['rowid'],
+                        'qty' => $newQuantity
+                    );
+                    $this->cart->update($data);
+                }else{
+                    $product = $this->product->getProduct($product_id);
+                    $product_special = $this->product->getProductSpecials($product_id);
+
+                    $data = array(
+                       'id'      => $product->row()->id,
+                       'qty'     => $quantity,
+                       'price'   => $product->row()->price,
+                       'name'    => $product->row()->name
+                    );
+
+                    if($product_special != null && $product_special->num_rows() > 0){
+                        $data['price'] = $product_special->row()->price;
+                    }
+                    $this->cart->insert($data);
+                }
+            }
+            redirect(base_url('product/' . $product_id), 'refresh');
+        }
+        
+        
     }
     
     function deleteFromCart(){

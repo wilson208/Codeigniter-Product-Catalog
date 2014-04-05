@@ -58,6 +58,10 @@
                 <a href="<?php echo admin_url('user'); ?>">Users</a>
             </li>
             
+            <li <?php if($this->uri->segment(2) == 'orders'){ echo 'class="active"';} ?>>
+                <a href="<?php echo admin_url('orders'); ?>">Orders</a>
+            </li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if(isset($this->session->userdata['logged_in']) && $this->session->userdata['logged_in'] == true){?>

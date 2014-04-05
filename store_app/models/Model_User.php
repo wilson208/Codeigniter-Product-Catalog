@@ -22,16 +22,8 @@ class Model_User extends CI_Model{
     }
     
     function getUser($id){
-        $this->db->where('id', $id);
-        return $this->db->get('user');   
-        //return $this->db->get_where('user', array('id' => $id), 1, 0);
-        
-        //$result = $this->db->query('SELECT * FROM user WHERE id = ? LIMIT 1', array($id));
-        //if($result->num_rows() > 0){
-        //    return $result->row();
-        //}else{
-        //    return null;
-        //}
+        $sql = "SELECT * FROM `user` WHERE `id` = ? ;";
+        return $this->db->query($sql, array($id));
     }
     
     function getUserAdmin($id){       
