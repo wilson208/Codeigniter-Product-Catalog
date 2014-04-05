@@ -29,7 +29,7 @@
         <label>Add your own review!</label>
     </div>
     <div class="form-group">
-        <textarea name="review" type="text" class="form-control" id="review" placeholder="Type your review here!" rows="5"></textarea>
+        <textarea name="review" type="text" class="form-control" id="review" placeholder="Type your review here!" rows="8" maxlength="500" cols="1"></textarea>
     </div>
     <div class="form-group pagination">
         <select name="score" class="form-control ">
@@ -43,5 +43,19 @@
     <div class="pagination">
         <button name="submit" value="Submit" type="submit" class="btn btn-default btn-primary">Submit Review</button>
     </div>
+    <div id="charsLeft" class="pagination"></div>
 </div>
 </form>
+
+<script type="text/javascript">
+    $('#review').keyup(function () {
+      var max = 500;
+      var len = $(this).val().length;
+      if (len >= max) {
+        $('#charsLeft').text('Limit reached!');
+      } else {
+        var char = max - len;
+        $('#charsLeft').text(char);
+      }
+    });
+</script>

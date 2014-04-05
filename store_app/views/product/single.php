@@ -33,7 +33,14 @@
             </tr>
             <tr>
                 <td>Reviews</td>
-                <td><a href="<?php echo base_url('review/'.$product->row()->id); ?>"><div id="star" class=""></div></a></td>
+                <td><a href="<?php echo base_url('review/'.$product->row()->id); ?>">
+                        <?php if(isset($productScore)){ ?>
+                            <div id="star" ></div>
+                        <?php }else{ ?>
+                            <div>No reviews available :( Add one!</div>
+                        <?php } ?>
+                    </a>
+                </td>
             </tr>
             <tr>
                 <td>Price</td>
