@@ -116,17 +116,6 @@ class Model_Product extends CI_Model{
     }
     
     
-    
-    
-    /**
-     * This method inserts a product special for a product.
-     * 
-     * @param int $productId
-     * @param double $specialPrice 
-     * @param timestamp $startDate (Optional)
-     * @param timestamp $stopDate (Optional)
-     * @return int id of inserted product special
-     */
     function insertProductSpecial($productId, $specialPrice, $startDate = null, $stopDate = null){
         
     }
@@ -141,22 +130,5 @@ class Model_Product extends CI_Model{
     }
     function getProductSpecials($product_id, $current = true){
         return null;
-    }
-    
-    
-    function insertProductReview($productId, $rating, $review="", $name="Anonymous"){
-        
-    }
-    function editProductReview($id, $rating, $review="", $name="Anonymous"){
-        
-    }
-    function deleteProductReview($id){
-        
-    }
-    function deleteAllProductReviews($product_id){
-        
-    }
-    function getProductReviews($product_id){
-        
     }
 }

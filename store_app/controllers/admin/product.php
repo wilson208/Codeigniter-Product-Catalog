@@ -5,6 +5,10 @@ class product extends My_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model('Model_Product', 'product');
+        $this->load->model('Model_Manufacturer', 'manufacturer');
+        $this->load->model('Model_Category', 'category');
+        $this->load->model('Model_Review', 'review');
+        
         $this->load->library('form_validation');
     }
     
@@ -24,8 +28,6 @@ class product extends My_Controller{
         }
         
         if($product_id != false && is_numeric($product_id)){
-            $this->load->model('Model_Manufacturer', 'manufacturer');
-            $this->load->model('Model_Category', 'category');
             
             $images = array_diff(scandir('store_assets/images/products/'), array('.', '..'));
             $data['images'] = array();
@@ -38,7 +40,7 @@ class product extends My_Controller{
             $data['product']        = $this->product->getProduct($product_id);
             $data['productImages']  = $this->product->getProductImages($product_id);
             $data['productSpecials']= $this->product->getProductSpecials($product_id);
-            $data['productReviews'] = $this->product->getProductReviews($product_id);
+            $data['productReviews'] = $this->review->getReview($product_id);
             
             parent::loadAdmin('product/single', $data);
         }
@@ -66,13 +68,22 @@ class product extends My_Controller{
             $this->product->deleteProduct($id);
             $this->product->deleteAllProductImages($id);
             $this->product->deleteAllProductSpecials($id);
-            $this->product->deleteAllProductReviews($id);
+            $this->review->deleteAllProductReviews($id);
         }
     }
     
     function deleteImage(){
         $productImage = $this->input->get('id');
         $this->product->deleteProductImage($productImage);
+        redirect($_SERVER['HTTP_REFERER'], 'refresh');
+    }
+    
+    function deleteReview(){
+        $review_id = $this->input->get('id');
+        
+        if($review_id){
+            $this->review->deleteReview($review_id);
+        }
         redirect($_SERVER['HTTP_REFERER'], 'refresh');
     }
     

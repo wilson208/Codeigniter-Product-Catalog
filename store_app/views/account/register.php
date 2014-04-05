@@ -2,6 +2,7 @@
 
 <div class="row">
     <h2>Register</h2>
+    <?php if(!isset($this->session->userdata['id'])){ ?>
     <div style="color:red;"><?php echo validation_errors(); ?></div>
     <?php echo form_open('account/processRegistration', array('role' => 'form')); ?>
         <div class="col-lg-4 border-right">
@@ -109,4 +110,7 @@
         </div>
         
     </form>
+    <?php } else { ?>
+    <h4>Error: You have no need to register, you are currently logged in.</h4>
+    <?php } ?>
 </div>

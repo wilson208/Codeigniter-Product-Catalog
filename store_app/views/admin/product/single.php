@@ -149,11 +149,32 @@
 </div>
 
 <div class="row">
-    <h1>Product Specials</h1>
+    <h1>Product Reviews</h1>
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Reviewer</td>
+                <td>Score</td>
+                <td>Review</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($productReviews->result() as $review){ ?>
+            <tr>
+                <td><?php echo $review->name; ?></td>
+                <td><?php echo $review->score; ?></td>
+                <td><p><?php echo $review->review; ?></p></td>
+                <td><a href="<?php echo admin_url('product/deleteReview?id=' . $review->id); ?>">Delete</a></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <div class="row">
-    <h1>Product Reviews</h1>
+    <h1>Product Specials</h1>
 </div>
+
 
 <?php } ?>

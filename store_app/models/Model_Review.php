@@ -14,22 +14,25 @@ class Model_Review extends CI_Model{
             'productId'   => $productId,
             'score'     => $score
             );
-        $this->db->insert('review', $data);
+        $this->db->insert('product_review', $data);
     }
     
     function deleteReview($id)
     {
-        $this->db->delete(`review`, array('id' => $id));
+        $this->db->delete('product_review', array('id' => $id));
     }
-    
+
+    function deleteAllProductReviews($product_id){
+        $this->db->delete('product_review', array('product_id' => $product_id));
+    }
     function getReview($id)
     {
-        return $this->db->query('SELECT * FROM `review` WHERE `productId` = ? ', array($id));
+        return $this->db->query('SELECT * FROM `product_review` WHERE `productId` = ? ', array($id));
     }
     
     function getScore($id)
     {
-        return $this->db->query('SELECT AVG(`score`) AS score FROM `review` WHERE `productId` = ? ', array($id));
+        return $this->db->query('SELECT AVG(`score`) AS score FROM `product_review` WHERE `productId` = ? ', array($id));
     }  
 }
 ?>

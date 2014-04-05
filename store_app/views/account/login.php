@@ -1,8 +1,8 @@
 <script type="text/javascript" src="<?php echo asset_url('js/validation.js'); ?>"></script>
 <div class="row">
     <div class="col-lg-4 border-right">
-        <h2>Login</h2>
-        
+        <h2>Login</h2>   
+<?php if(!isset($this->session->userdata['id'])){ ?>
         <?php if(isset($error)){ ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php } ?>
@@ -26,6 +26,10 @@
             <input type="submit" class="btn btn-default" value="Login"/>
 
         </form>
+<?php }else{ ?>
+        <h4>No need To Login, you are already logged in.</h4>
+        <a href="<?php echo base_url('account/processLogout');?>"><h5>Logout?</h5></a>
+<?php } ?>
     </div>
     
     <div class="col-lg-5">
