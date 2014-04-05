@@ -41,7 +41,7 @@ class blog extends My_Controller{
         }
         
         $data['blog'] = $this->Model_Blog->getBlog($blog_id);
-        if($data['blog']->num_rows > 0){
+        if($data['blog'] != null){
             parent::loadPage('blog/single', 'Blog', $data);
         }else{
             redirect('blog', 'refresh');
